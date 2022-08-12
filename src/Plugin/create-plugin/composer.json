@@ -1,0 +1,15 @@
+{
+    "name": "devhelper-plugin/create-plugin",
+    "autoload": {
+        "psr-4": {
+            "DevHelper\\Plugin\\CreatePlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kuangjian",
+            "email": "2910508410@qq.com"
+        }
+    ],
+    "require": {}
+}

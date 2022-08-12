@@ -1,0 +1,15 @@
+{
+    "name": "devhelper-plugin/dic-tree",
+    "autoload": {
+        "psr-4": {
+            "Devhelper\\Plugin\\DicTree\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kuangjian",
+            "email": "2910508410@qq.com"
+        }
+    ],
+    "require": {}
+}
