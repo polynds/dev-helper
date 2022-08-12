@@ -1,0 +1,37 @@
+{
+    "name": "devhelper-plugin/plantuml",
+    "description": "支持生成plantuml格式文件",
+    "license": "Apache-2.0",
+    "keywords": [
+        "php",
+        "devhelper"
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "authors": [
+        {
+            "name": "kuangjian",
+            "email": "2910508410@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DevHelper\\Plugin\\PlantUML\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "main"
+        }
+    },
+    "bin": [
+    ],
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix $1",
+        "test": "phpunit --colors=always"
+    }
+}

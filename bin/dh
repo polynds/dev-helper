@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+/**
+ * happy coding!!!
+ */
+$autoloadFiles = [
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+];
+
+foreach ($autoloadFiles as $file) {
+    if (file_exists($file)) {
+        require_once $file;
+        break;
+    }
+}
+
+! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
+! defined('APP_PATH') && define('APP_PATH', BASE_PATH . '/src');
+
+(new \DevHelper\Lib\Console\Application())->run();
