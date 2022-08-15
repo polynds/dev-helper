@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Builder;
 
-class Param
+class Param extends Definition
 {
     protected $type;
 

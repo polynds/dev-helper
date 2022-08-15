@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Builder;
 
-class Modifiers
+class Modifiers extends Definition
 {
     public const MODIFIER_PUBLIC = 1;
 

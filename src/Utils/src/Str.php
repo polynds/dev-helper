@@ -22,4 +22,15 @@ class Str
         }
         return false;
     }
+
+    public static function camel(string $value): string
+    {
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+        return lcfirst(str_replace(' ', '', $value));
+    }
+
+    public static function bigCamel(string $value): string
+    {
+        return ucfirst(self::camel($value));
+    }
 }

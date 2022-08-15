@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Builder;
 
-class Method
+class Method extends Definition
 {
     public string $name;
 

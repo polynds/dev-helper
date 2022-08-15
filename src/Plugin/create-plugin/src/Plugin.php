@@ -24,6 +24,10 @@ class Plugin
 
     protected string $NameSpace;
 
+    protected string $className;
+
+    protected string $commandName;
+
     public function __construct()
     {
     }
@@ -113,6 +117,28 @@ class Plugin
     public function setNameSpace(string $NameSpace): self
     {
         $this->NameSpace = $NameSpace;
+        return $this;
+    }
+
+    public function getClassName(): string
+    {
+        return $this->className;
+    }
+
+    public function setClassName(string $className): self
+    {
+        $this->className = $className;
+        return $this;
+    }
+
+    public function getCommandName(): string
+    {
+        return $this->commandName;
+    }
+
+    public function setCommandName(string $commandName): self
+    {
+        $this->commandName = $commandName;
         return $this;
     }
 }

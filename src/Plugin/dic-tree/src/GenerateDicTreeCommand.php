@@ -10,7 +10,7 @@ use DevHelper\Lib\Console\AbstractCommand;
 
 class GenerateDicTreeCommand extends AbstractCommand
 {
-    protected string $name = 'generateDicTree';
+    protected string $name = 'dicTree';
 
     public function showMD()
     {
@@ -88,5 +88,10 @@ md;
     public function handle()
     {
         $this->showMD();
+    }
+
+    protected function configure()
+    {
+        $this->setDescription('生成目录树结构');
     }
 }

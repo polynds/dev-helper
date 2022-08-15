@@ -2,7 +2,7 @@
     "name": "devhelper-plugin/dic-tree",
     "autoload": {
         "psr-4": {
-            "Devhelper\\Plugin\\DicTree\\": "src/"
+            "DevHelper\\Plugin\\DicTree\\": "src/"
         }
     },
     "authors": [

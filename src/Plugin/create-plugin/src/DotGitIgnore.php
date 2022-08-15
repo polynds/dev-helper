@@ -35,6 +35,6 @@ EOF;
         if (! is_dir($path) || ! is_writable($path)) {
             throw new FileNotWritableException();
         }
-        FileWriter::write($path . $this->fileName, $this->content);
+        FileWriter::write($path . DIRECTORY_SEPARATOR . $this->fileName, $this->content);
     }
 }

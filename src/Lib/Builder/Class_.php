@@ -6,33 +6,33 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Builder;
 
-class Class_
+class Class_ extends Definition
 {
-    public string $name;
+    protected string $name;
 
-    public int $flags = 0;
+    protected int $flags = 0;
 
     /**
      * @var Property[]
      */
-    public array $property = [];
+    protected array $property = [];
 
     /**
      * @var Method[]
      */
-    public array $method = [];
+    protected array $method = [];
 
-    public array $constant = [];
+    protected array $constant = [];
 
     /**
      * @var Class_[]
      */
-    public array $extends = [];
+    protected array $extends = [];
 
     /**
      * @var Interface_[]
      */
-    public array $implements = [];
+    protected array $implements = [];
 
     public function __construct(string $name)
     {
@@ -57,6 +57,53 @@ class Class_
     public function isAnonymous(): bool
     {
         return $this->name === null;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getFlags(): int
+    {
+        return $this->flags;
+    }
+
+    /**
+     * @return Property[]
+     */
+    public function getProperty(): array
+    {
+        return $this->property;
+    }
+
+    /**
+     * @return Method[]
+     */
+    public function getMethod(): array
+    {
+        return $this->method;
+    }
+
+    public function getConstant(): array
+    {
+        return $this->constant;
+    }
+
+    /**
+     * @return Class_[]
+     */
+    public function getExtends(): array
+    {
+        return $this->extends;
+    }
+
+    /**
+     * @return Interface_[]
+     */
+    public function getImplements(): array
+    {
+        return $this->implements;
     }
 
     public function setFlags(int $flags): self

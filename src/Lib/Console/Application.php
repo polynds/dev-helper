@@ -28,7 +28,6 @@ final class Application extends BaseApplication
             if (! $file) {
                 continue;
             }
-            var_dump($className, $file);
             $commands[] = new $className();
         }
         $this->addCommands($commands);
