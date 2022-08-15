@@ -6,19 +6,17 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Builder;
 
-class Property extends Definition
+class Constant extends Definition
 {
     protected string $name;
-
-    protected int $flags = 0;
-
-    protected $type;
-
-    protected $default;
 
     public function __construct(string $name)
     {
         $this->name = $name;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

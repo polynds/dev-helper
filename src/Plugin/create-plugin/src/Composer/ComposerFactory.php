@@ -6,27 +6,29 @@ declare(strict_types=1);
  */
 namespace DevHelper\Plugin\CreatePlugin\Composer;
 
-use DevHelper\Lib\File\FileWriter;
+use DevHelper\Lib\File\JsonFile;
 
 class ComposerFactory
 {
     protected Composer $composer;
 
-    protected string $fileName;
+    protected string $path;
 
-    public function __construct(Composer $composer, string $fileName)
+    protected string $fileName = 'composer.json';
+
+    public function __construct(Composer $composer, string $path)
     {
         $this->composer = $composer;
-        $this->fileName = $fileName;
+        $this->path = $path;
     }
 
-    public static function with(Composer $composer, string $fileName): self
+    public static function with(Composer $composer, string $path): self
     {
-        return new static($composer,$fileName);
+        return new static($composer,$path);
     }
 
     public function writeComposerJSON()
     {
-        FileWriter::write($this->fileName, json_encode($this->composer));
+        JsonFile::write($this->path . DIRECTORY_SEPARATOR . $this->fileName, $this->composer->toArray());
     }
 }

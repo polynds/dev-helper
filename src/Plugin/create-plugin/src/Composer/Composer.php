@@ -10,29 +10,29 @@ class Composer
 {
     public string $name;
 
-    public string $description;
+    public string $description = '';
 
-    public string $license;
-
-    /**
-     * @var string[]
-     */
-    public array $keywords;
+    public string $license = '';
 
     /**
      * @var string[]
      */
-    public array $require;
+    public array $keywords = [];
+
+    /**
+     * @var string[]
+     */
+    public array $require = [];
 
     /**
      * @var Authors[]
      */
-    public array $authors;
+    public array $authors = [];
 
     /**
      * psr-4.
      */
-    public array $autoload;
+    public array $autoload = [];
 
     public function setName(string $name): self
     {
@@ -79,10 +79,24 @@ class Composer
         return $this;
     }
 
-    public function setAutoload(string $namespace, string $path): self
+    public function setAutoload(string $namespace, string $path = 'src/'): self
     {
-        $namespace = str_replace('\\', '/\\', $namespace);
+        $namespace = str_replace('\\', '\\', $namespace);
+        $namespace .= '\\';
         $this->autoload['psr-4'][$namespace] = $path;
         return $this;
+    }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'license' => $this->license,
+            'keywords' => $this->keywords,
+            'require' => $this->require,
+            'authors' => $this->authors,
+            'autoload' => $this->autoload,
+        ];
     }
 }

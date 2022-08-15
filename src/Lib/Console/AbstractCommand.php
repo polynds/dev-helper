@@ -9,8 +9,11 @@ namespace DevHelper\Lib\Console;
 use DevHelper\Utils\Str;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
@@ -26,23 +29,18 @@ abstract class AbstractCommand extends SymfonyCommand
 
     protected int $verbosity = OutputInterface::VERBOSITY_NORMAL;
 
-    protected bool $coroutine = true;
-
     protected ?string $signature;
 
-    protected array $verbosityMap
-        = [
-            'v' => OutputInterface::VERBOSITY_VERBOSE,
-            'vv' => OutputInterface::VERBOSITY_VERY_VERBOSE,
-            'vvv' => OutputInterface::VERBOSITY_DEBUG,
-            'quiet' => OutputInterface::VERBOSITY_QUIET,
-            'normal' => OutputInterface::VERBOSITY_NORMAL,
-        ];
+    protected array $verbosityMap = [];
 
-    protected int $exitCode = 0;
+    protected HelperSet $helperSet;
 
     public function __construct(string $name = null)
     {
+        $this->helperSet = new HelperSet([
+            new QuestionHelper(),
+        ]);
+
         if (! $name && $this->name) {
             $name = $this->name;
         }
@@ -80,6 +78,20 @@ abstract class AbstractCommand extends SymfonyCommand
     public function ask(string $question, $default = null)
     {
         return $this->output->ask($question, $default);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function askAndValidate($question, $validator = null, $attempts = null, $default = null)
+    {
+        /** @var \Symfony\Component\Console\Helper\QuestionHelper $helper */
+        $helper = $this->helperSet->get('question');
+        $question = new Question($question, $default);
+        $question->setValidator($validator);
+        $question->setMaxAttempts($attempts);
+
+        return $helper->ask($this->input, $this->getErrorOutput(), $question);
     }
 
     /**
@@ -341,5 +353,14 @@ abstract class AbstractCommand extends SymfonyCommand
         };
 
         return $callback();
+    }
+
+    private function getErrorOutput(): OutputInterface
+    {
+        if ($this->output instanceof ConsoleOutputInterface) {
+            return $this->output->getErrorOutput();
+        }
+
+        return $this->output;
     }
 }

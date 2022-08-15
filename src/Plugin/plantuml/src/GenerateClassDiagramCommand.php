@@ -13,7 +13,7 @@ use DevHelper\Lib\Parser\ClassParser;
 class GenerateClassDiagramCommand extends AbstractCommand
 {
 
-    protected string $name = 'generateClassDiagram';
+    protected string $name = 'classDiagram';
 
     public function show()
     {
@@ -33,5 +33,11 @@ class GenerateClassDiagramCommand extends AbstractCommand
     public function handle()
     {
         $this->show();
+    }
+
+    protected function configure()
+    {
+        parent::configure();
+        $this->setDescription('生成领域类图');
     }
 }

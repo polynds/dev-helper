@@ -18,5 +18,6 @@ foreach ($autoloadFiles as $file) {
 
 ! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
 ! defined('APP_PATH') && define('APP_PATH', BASE_PATH . '/src');
+! defined('PLUGIN_PATH') && define('PLUGIN_PATH', BASE_PATH . '/src/Plugin');
 
 (new \DevHelper\Lib\Console\Application())->run();
