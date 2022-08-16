@@ -9,12 +9,12 @@ namespace DevHelper\Plugin\CreatePlugin;
 use DevHelper\Lib\Console\AbstractCommand;
 use DevHelper\Lib\File\Dir;
 use DevHelper\Lib\File\FileWriter;
+use DevHelper\Lib\File\JsonFile;
 use DevHelper\Plugin\CreatePlugin\Composer\Authors;
 use DevHelper\Plugin\CreatePlugin\Composer\ComposerFactory;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\PrettyPrinter;
-use PHPStan\Type\StringType;
 
 class PluginFactory
 {
@@ -32,16 +32,17 @@ class PluginFactory
         $this->createComposer();
         $this->createDotGitIgnore();
         $this->createCommand();
+        $this->registerCommand();
     }
 
     protected function createDir()
     {
-        Dir::makeDir($this->getRootPath());
+        Dir::makeDir($this->getPluginRootPath());
     }
 
     protected function createSrc()
     {
-        Dir::makeDir($this->getSrcPath());
+        Dir::makeDir($this->getPluginSrcPath());
     }
 
     protected function createComposer()
@@ -62,10 +63,9 @@ class PluginFactory
 
     protected function createCommand()
     {
-        $srcPath = $this->getSrcPath();
         $className = sprintf('%sCommand', $this->plugin->getClassName());
         $fileName = $className . '.php';
-        $filePath = $srcPath . DIRECTORY_SEPARATOR . $fileName;
+        $filePath = $this->getPluginSrcPath() . DIRECTORY_SEPARATOR . $fileName;
         $factory = new BuilderFactory();
         $node = $factory->namespace($this->plugin->getNameSpace())
             ->addStmt($factory->use(AbstractCommand::class))
@@ -75,7 +75,7 @@ class PluginFactory
                     ->addStmt($factory->method('handle')->makePublic())
                     ->addStmt($factory->method('configure')->makeProtected()->addStmt(
                         new Node\Expr\MethodCall(new Node\Expr\Variable('this'), 'setDescription', [
-                            new Node\Arg(new Node\Scalar\MagicConst\Class_()),
+                            new Node\Arg(new Node\Scalar\String_($this->plugin->getComposerDesc())),
                         ])
                     ))
                     ->addStmt($factory->property('name')->setType('string')->makeProtected()->setDefault($this->plugin->getCommandName()))
@@ -88,13 +88,32 @@ class PluginFactory
         FileWriter::write($filePath, $command);
     }
 
-    private function getRootPath(): string
+    protected function registerCommand()
+    {
+        $cmd = sprintf('php %s/compile %s dev-main', BIN_PATH, $this->plugin->getComposerName());
+        exec($cmd, $output, $result);
+        if ($result !== 0) {
+            throw new \InvalidArgumentException('命令注册失败');
+        }
+
+        $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
+        if ($plugins && is_array($plugins)) {
+            $className = sprintf('%sCommand', $this->plugin->getClassName());
+            $plugins[] = [
+                'name' => $this->plugin->getCommandName(),
+                'command' => str_replace('\\', '\\', $this->plugin->getNameSpace() . '\\' . $className),
+            ];
+            JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $plugins);
+        }
+    }
+
+    private function getPluginRootPath(): string
     {
         return $this->plugin->getPath() . DIRECTORY_SEPARATOR;
     }
 
-    private function getSrcPath(): string
+    private function getPluginSrcPath(): string
     {
-        return $this->plugin->getPath() . DIRECTORY_SEPARATOR . 'src';
+        return $this->getPluginRootPath() . 'src';
     }
 }

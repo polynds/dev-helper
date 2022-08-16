@@ -17,12 +17,14 @@ class Composer
     /**
      * @var string[]
      */
-    public array $keywords = [];
+    public array $keywords = ['php'];
 
     /**
      * @var string[]
      */
-    public array $require = [];
+    public array $require = [
+        'php' => '>=7.4',
+    ];
 
     /**
      * @var Authors[]
@@ -52,21 +54,15 @@ class Composer
         return $this;
     }
 
-    /**
-     * @param string[] $keywords
-     */
-    public function setKeywords(array $keywords): self
+    public function setKeywords(string $keywords): self
     {
-        $this->keywords = $keywords;
+        $this->keywords[] = $keywords;
         return $this;
     }
 
-    /**
-     * @param string[] $require
-     */
-    public function setRequire(array $require): self
+    public function setRequire(string $key, string $require): self
     {
-        $this->require = $require;
+        $this->require[$key] = $require;
         return $this;
     }
 
@@ -87,7 +83,7 @@ class Composer
         return $this;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'name' => $this->name,

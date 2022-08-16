@@ -8,7 +8,7 @@ namespace DevHelper\Lib;
 
 class Config
 {
-    protected string $configPath = APP_PATH . '/config/config.php';
+    protected string $configPath = SRC_PATH . '/config/config.php';
 
     protected array $configs;
 

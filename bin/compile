@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+/**
+ * happy coding!!!
+ */
+if (! isset($argv[1],$argv[2])) {
+    echo '参数错误' . PHP_EOL;
+    exit(1);
+}
+$package = sprintf('%s %s', $argv[1], $argv[2]);
+$cmd = sprintf('composer require %s', $package);
+
+$cwd = getcwd();
+assert(is_string($cwd));
+chdir(__DIR__ . '/../');
+exec($cmd, $output, $result);
+if ($result !== 0) {
+    echo 'Could not remove dev deps, make sure exec is allowed and php can be found in your PATH';
+    exit(1);
+}
+chdir($cwd);
