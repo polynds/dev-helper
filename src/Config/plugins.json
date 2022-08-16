@@ -10,9 +10,5 @@
     {
         "name": "dic-tree",
         "command": "DevHelper\\Plugin\\DicTree\\GenerateDicTreeCommand"
-    },
-    {
-        "name": "makeDdd",
-        "command": "DevHelper\\Plugin\\MakeDdd\\MakeDddCommand"
     }
 ]
