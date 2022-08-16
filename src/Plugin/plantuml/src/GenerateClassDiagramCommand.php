@@ -17,7 +17,7 @@ class GenerateClassDiagramCommand extends AbstractCommand
 
     public function show()
     {
-        $path = APP_PATH;
+        $path = SRC_PATH;
         $fileFinder = new FileFinder();
         $files = $fileFinder->findFiles($path);
         var_dump($files);

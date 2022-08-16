@@ -6,6 +6,9 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\File;
 
+use Exception;
+use InvalidArgumentException;
+
 class JsonFile
 {
     public static function filePutContentsIfModified(string $path, string $content): int
@@ -51,17 +54,46 @@ class JsonFile
         return 0;
     }
 
+    public static function read(string $path)
+    {
+        try {
+            $json = file_get_contents($path);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException('Could not read ' . $path . "\n\n" . $e->getMessage());
+        }
+
+        if ($json === false) {
+            throw new InvalidArgumentException('Could not read ' . $path);
+        }
+
+        return self::decode($json);
+    }
+
     public static function encode($data, int $options = 448)
     {
         $json = json_encode($data, $options);
         if ($json === false) {
-            self::throwEncodeError(json_last_error());
+            self::throwJsonError(json_last_error());
         }
 
         return $json;
     }
 
-    private static function throwEncodeError(int $code): void
+    public static function decode(?string $json)
+    {
+        if (is_null($json)) {
+            return null;
+        }
+
+        $data = json_decode($json, true);
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            self::throwJsonError(json_last_error());
+        }
+
+        return $data;
+    }
+
+    private static function throwJsonError(int $code): void
     {
         switch ($code) {
             case JSON_ERROR_DEPTH:

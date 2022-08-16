@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Console;
 
-use DevHelper\Lib\Config;
+use DevHelper\Lib\File\JsonFile;
 use DevHelper\Lib\Parser\Composer;
 use Symfony\Component\Console\Application as BaseApplication;
 
@@ -21,7 +21,7 @@ final class Application extends BaseApplication
     public function registerCommand()
     {
         $commands = [];
-        $plugins = (new Config())->get('plugins');
+        $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
         foreach ($plugins as $plugin) {
             $className = $plugin['command'];
             $file = Composer::getLoader()->findFile($className);
