@@ -19,8 +19,8 @@
         "symfony/finder": "^5.4.3",
         "ext-json": "*",
         "ext-pcntl": "*",
-        "devhelper-plugin/dic-tree": "dev-main",
-        "devhelper-plugin/generate-diagram": "dev-main"
+        "devhelper-plugin/generate-diagram": "dev-main",
+        "devhelper-plugin/generate-dir-tree": "dev-main"
     },
     "require-dev": {
         "phpstan/phpstan": "1.8.2",

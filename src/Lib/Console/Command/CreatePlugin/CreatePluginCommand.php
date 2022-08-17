@@ -20,7 +20,7 @@ class CreatePluginCommand extends AbstractCommand
         $pluginName = $this->askAndValidate('请输入插件名称:', static function ($value) {
             if (! $value) {
                 throw new \InvalidArgumentException(
-                    'The olugin name is invalid'
+                    'The plugin name is invalid'
                 );
             }
             return $value;
@@ -31,8 +31,17 @@ class CreatePluginCommand extends AbstractCommand
                 'The package name ' . $composerName . ' is invalid, it should be lowercase and have a vendor name, a forward slash, and a package name, matching: [a-z0-9_.-]+/[a-z0-9_.-]+'
             );
         }
-        $composerDesc = $this->askAndValidate('请输入插件描述:');
-        $authorName = $this->askAndValidate('请输入作者姓名:', null, null, '');
+        $composerDesc = $this->askAndValidate('请输入插件描述:', static function ($value) {
+            if (! $value) {
+                throw new \InvalidArgumentException(
+                    'The plugin desc is invalid'
+                );
+            }
+            return Str::convert2utf8($value);
+        });
+        $authorName = $this->askAndValidate('请输入作者姓名:', static function ($value) {
+            return $value ? Str::convert2utf8($value) : $value;
+        }, null, '');
         $authorEmail = $this->askAndValidate('请输入作者邮箱:', null, null, '');
         $NameSpace = 'DevHelper\\Plugin\\' . Str::bigCamel($pluginName);
         $plugin = (new Plugin())

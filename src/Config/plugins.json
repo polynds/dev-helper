@@ -1,10 +1,10 @@
 [
     {
-        "name": "dic-tree",
-        "command": "DevHelper\\Plugin\\DicTree\\GenerateDicTreeCommand"
-    },
-    {
         "name": "generateDiagram",
         "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand"
+    },
+    {
+        "name": "generateDirTree",
+        "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand"
     }
 ]
