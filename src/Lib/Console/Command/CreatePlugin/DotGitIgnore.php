@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Plugin\CreatePlugin;
+namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use DevHelper\Lib\Exception\FileNotWritableException;
 use DevHelper\Lib\File\FileWriter;

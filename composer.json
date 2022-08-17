@@ -17,11 +17,10 @@
         "nikic/php-parser": "^4.1",
         "symfony/console": "^5.4.3",
         "symfony/finder": "^5.4.3",
-        "devhelper-plugin/plantuml": "dev-main",
-        "devhelper-plugin/dic-tree": "dev-main",
-        "devhelper-plugin/create-plugin": "dev-main",
         "ext-json": "*",
-        "ext-pcntl": "*"
+        "ext-pcntl": "*",
+        "devhelper-plugin/dic-tree": "dev-main",
+        "devhelper-plugin/generate-diagram": "dev-main"
     },
     "require-dev": {
         "phpstan/phpstan": "1.8.2",
@@ -43,6 +42,6 @@
         }
     },
     "bin": [
-        "bin/dev-helper"
+        "bin/dh"
     ]
 }

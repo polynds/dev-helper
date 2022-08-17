@@ -1,14 +1,10 @@
 [
     {
-        "name": "create-plugin",
-        "command": "DevHelper\\Plugin\\CreatePlugin\\CreatePluginCommand"
-    },
-    {
-        "name": "plantuml",
-        "command": "DevHelper\\Plugin\\PlantUML\\GenerateClassDiagramCommand"
-    },
-    {
         "name": "dic-tree",
         "command": "DevHelper\\Plugin\\DicTree\\GenerateDicTreeCommand"
+    },
+    {
+        "name": "generateDiagram",
+        "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand"
     }
 ]

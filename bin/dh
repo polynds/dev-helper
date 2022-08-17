@@ -3,11 +3,6 @@
 /**
  * happy coding!!!
  */
-
-use DevHelper\Plugin\CreatePlugin\CreatePluginCommand;
-use DevHelper\Plugin\DicTree\GenerateDicTreeCommand;
-use DevHelper\Plugin\PlantUML\GenerateClassDiagramCommand;
-
 $autoloadFiles = [
     __DIR__ . '/../../../autoload.php',
     __DIR__ . '/../autoload.php',
@@ -26,20 +21,5 @@ foreach ($autoloadFiles as $file) {
 ! defined('PLUGIN_PATH') && define('PLUGIN_PATH', SRC_PATH . '/Plugin');
 ! defined('BIN_PATH') && define('BIN_PATH', BASE_PATH . '/bin');
 ! defined('CONFIG_PATH') && define('CONFIG_PATH', SRC_PATH . '/Config');
-
-//echo json_encode([
-//    [
-//        'name' => 'create-plugin',
-//        'command' => str_replace('\\','\\',CreatePluginCommand::class),
-//    ],
-//    [
-//        'name' => 'plantuml',
-//        'command' => str_replace('\\','\\',GenerateClassDiagramCommand::class),
-//    ],
-//    [
-//        'name' => 'dic-tree',
-//        'command' => str_replace('\\','\\',GenerateDicTreeCommand::class),
-//    ],
-//]);die();
 
 (new \DevHelper\Lib\Console\Application())->run();
