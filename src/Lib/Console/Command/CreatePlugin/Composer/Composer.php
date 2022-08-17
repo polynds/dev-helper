@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Plugin\CreatePlugin\Composer;
+namespace DevHelper\Lib\Console\Command\CreatePlugin\Composer;
 
 class Composer
 {

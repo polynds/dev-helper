@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Plugin\CreatePlugin;
+namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 class Plugin
 {

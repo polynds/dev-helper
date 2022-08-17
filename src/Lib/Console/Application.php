@@ -6,6 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Console;
 
+use DevHelper\Lib\Console\Command\CreatePlugin\CreatePluginCommand;
 use DevHelper\Lib\File\JsonFile;
 use DevHelper\Lib\Parser\Composer;
 use Symfony\Component\Console\Application as BaseApplication;
@@ -15,6 +16,7 @@ final class Application extends BaseApplication
     public function __construct(string $name = 'DH Console', string $version = '1.0')
     {
         parent::__construct($name, $version);
+        $this->registerLibCommand();
         $this->registerCommand();
     }
 
@@ -31,5 +33,12 @@ final class Application extends BaseApplication
             $commands[] = new $className();
         }
         $this->addCommands($commands);
+    }
+
+    protected function registerLibCommand()
+    {
+        $this->addCommands([
+            new CreatePluginCommand(),
+        ]);
     }
 }

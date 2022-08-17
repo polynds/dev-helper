@@ -4,14 +4,14 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Plugin\CreatePlugin;
+namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use DevHelper\Lib\Console\AbstractCommand;
+use DevHelper\Lib\Console\Command\CreatePlugin\Composer\Authors;
+use DevHelper\Lib\Console\Command\CreatePlugin\Composer\ComposerFactory;
 use DevHelper\Lib\File\Dir;
 use DevHelper\Lib\File\FileWriter;
 use DevHelper\Lib\File\JsonFile;
-use DevHelper\Plugin\CreatePlugin\Composer\Authors;
-use DevHelper\Plugin\CreatePlugin\Composer\ComposerFactory;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\PrettyPrinter;

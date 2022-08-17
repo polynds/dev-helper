@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Plugin\CreatePlugin;
+namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use Composer\Pcre\Preg;
 use DevHelper\Lib\Console\AbstractCommand;
@@ -32,8 +32,8 @@ class CreatePluginCommand extends AbstractCommand
             );
         }
         $composerDesc = $this->askAndValidate('请输入插件描述:');
-        $authorName = $this->askAndValidate('请输入作者姓名:');
-        $authorEmail = $this->askAndValidate('请输入作者邮箱:');
+        $authorName = $this->askAndValidate('请输入作者姓名:', null, null, '');
+        $authorEmail = $this->askAndValidate('请输入作者邮箱:', null, null, '');
         $NameSpace = 'DevHelper\\Plugin\\' . Str::bigCamel($pluginName);
         $plugin = (new Plugin())
             ->setPath(PLUGIN_PATH . '/' . $pluginName)
