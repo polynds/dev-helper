@@ -6,8 +6,18 @@ declare(strict_types=1);
  */
 namespace DevHelper\Utils;
 
+use InvalidArgumentException;
+
 class Str
 {
+    public static function convert2utf8(string $value)
+    {
+        if (false === $encoding = mb_detect_encoding($value, null, true)) {
+            throw new InvalidArgumentException('Failed to parse string encoding.');
+        }
+        return mb_convert_encoding($value, 'UTF-8', $encoding);
+    }
+
     public static function length(string $value)
     {
         return mb_strlen($value);
