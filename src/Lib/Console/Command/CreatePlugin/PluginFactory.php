@@ -31,6 +31,7 @@ class PluginFactory
         $this->createSrc();
         $this->createComposer();
         $this->createDotGitIgnore();
+        $this->createConfigProvider();
         $this->createCommand();
         $this->registerCommand();
     }
@@ -52,7 +53,8 @@ class PluginFactory
             ->setDescription($this->plugin->getComposerDesc())
             ->setLicense($this->plugin->getComposerLicense())
             ->setAuthors([new Authors($this->plugin->getAuthorName(), $this->plugin->getAuthorEmail())])
-            ->setAutoload($this->plugin->getNameSpace());
+            ->setAutoload($this->plugin->getNameSpace())
+            ->setExtra($this->plugin->getNameSpace());
         ComposerFactory::with($composer, $this->plugin->getPath())->writeComposerJSON();
     }
 
@@ -61,9 +63,23 @@ class PluginFactory
         (new DotGitIgnore())->write($this->plugin->getPath());
     }
 
+    protected function createConfigProvider()
+    {
+        (new ConfigProvider(
+            $this->getPluginSrcPath(),
+            $this->plugin->getNameSpace(),
+            $this->getCommandClass() . '::class',
+        ))->write();
+    }
+
+    protected function getCommandClass(): string
+    {
+        return sprintf('%sCommand', $this->plugin->getClassName());
+    }
+
     protected function createCommand()
     {
-        $className = sprintf('%sCommand', $this->plugin->getClassName());
+        $className = $this->getCommandClass();
         $fileName = $className . '.php';
         $filePath = $this->getPluginSrcPath() . DIRECTORY_SEPARATOR . $fileName;
         $factory = new BuilderFactory();
@@ -73,11 +89,14 @@ class PluginFactory
                 $factory->class($className)
                     ->extend('AbstractCommand')
                     ->addStmt($factory->method('handle')->makePublic())
-                    ->addStmt($factory->method('configure')->makeProtected()->addStmt(
-                        new Node\Expr\MethodCall(new Node\Expr\Variable('this'), 'setDescription', [
-                            new Node\Arg(new Node\Scalar\String_($this->plugin->getComposerDesc())),
-                        ])
-                    ))
+                    ->addStmt(
+                        $factory->method('configure')->makeProtected()
+                            ->addStmt(
+                                new Node\Expr\MethodCall(new Node\Expr\Variable('this'), 'setDescription', [
+                                    new Node\Arg(new Node\Scalar\String_($this->plugin->getComposerDesc())),
+                                ])
+                            )
+                    )
                     ->addStmt($factory->property('name')->setType('string')->makeProtected()->setDefault($this->plugin->getCommandName()))
             )
             ->getNode();

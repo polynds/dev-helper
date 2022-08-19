@@ -8,33 +8,38 @@ namespace DevHelper\Lib\Console\Command\CreatePlugin\Composer;
 
 class Composer
 {
-    public string $name;
+    protected string $name;
 
-    public string $description = '';
+    protected string $description = '';
 
-    public string $license = '';
-
-    /**
-     * @var string[]
-     */
-    public array $keywords = ['php'];
+    protected string $license = '';
 
     /**
      * @var string[]
      */
-    public array $require = [
+    protected array $keywords = ['php'];
+
+    /**
+     * @var string[]
+     */
+    protected array $require = [
         'php' => '>=7.4',
     ];
 
     /**
      * @var Authors[]
      */
-    public array $authors = [];
+    protected array $authors = [];
 
     /**
      * psr-4.
      */
-    public array $autoload = [];
+    protected array $autoload = [];
+
+    /**
+     * extra.
+     */
+    protected array $extra = [];
 
     public function setName(string $name): self
     {
@@ -83,6 +88,12 @@ class Composer
         return $this;
     }
 
+    public function setExtra(string $namespace): self
+    {
+        $this->extra['devHelper']['config'] = str_replace('\\', '\\', $namespace . '\ConfigProvider');
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
@@ -93,6 +104,7 @@ class Composer
             'require' => $this->require,
             'authors' => $this->authors,
             'autoload' => $this->autoload,
+            'extra' => $this->extra,
         ];
     }
 }
