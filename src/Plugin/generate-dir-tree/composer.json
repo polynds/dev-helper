@@ -18,5 +18,10 @@
         "psr-4": {
             "DevHelper\\Plugin\\GenerateDirTree\\": "src/"
         }
+    },
+    "extra": {
+        "devHelper": {
+            "config": "DevHelper\\Plugin\\GenerateDiagram\\ConfigProvider"
+        }
     }
 }
