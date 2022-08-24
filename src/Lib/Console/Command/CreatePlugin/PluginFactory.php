@@ -55,7 +55,7 @@ class PluginFactory
             ->setAuthors([new Authors($this->plugin->getAuthorName(), $this->plugin->getAuthorEmail())])
             ->setAutoload($this->plugin->getNameSpace())
             ->setExtra($this->plugin->getNameSpace());
-        ComposerFactory::with($composer, $this->plugin->getPath())->writeComposerJSON();
+        (new ComposerFactory($composer, $this->plugin->getPath()))->writeComposerJSON();
     }
 
     protected function createDotGitIgnore()

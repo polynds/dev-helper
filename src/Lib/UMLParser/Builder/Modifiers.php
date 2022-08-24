@@ -4,9 +4,9 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Builder;
+namespace DevHelper\Lib\UMLParser\Builder;
 
-class Modifiers extends Definition
+class Modifiers
 {
     public const MODIFIER_PUBLIC = 1;
 

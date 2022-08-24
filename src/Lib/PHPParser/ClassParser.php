@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Parser;
+namespace DevHelper\Lib\PHPParser;
 
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;

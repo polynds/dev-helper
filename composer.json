@@ -41,6 +41,10 @@
             "url": "./src/Plugin/*"
         }
     },
+    "scripts": {
+        "analyse": "phpstan analyse --memory-limit 1000M -c phpstan.neon",
+        "cs-fix": "php-cs-fixer fix $1"
+    },
     "bin": [
         "bin/dh"
     ]

@@ -8,7 +8,7 @@ namespace DevHelper\Lib\Console;
 
 use DevHelper\Lib\Console\Command\CreatePlugin\CreatePluginCommand;
 use DevHelper\Lib\File\JsonFile;
-use DevHelper\Lib\Parser\Composer;
+use DevHelper\Lib\PHPParser\Composer;
 use Symfony\Component\Console\Application as BaseApplication;
 
 final class Application extends BaseApplication

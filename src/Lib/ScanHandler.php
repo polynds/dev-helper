@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Scan;
+namespace DevHelper\Lib;
 
 class ScanHandler
 {

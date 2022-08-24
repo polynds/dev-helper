@@ -4,7 +4,9 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Builder;
+namespace DevHelper\Lib\UMLParser\Builder;
+
+use LogicException;
 
 class Class_ extends Definition
 {
@@ -56,7 +58,7 @@ class Class_ extends Definition
 
     public function isAnonymous(): bool
     {
-        return $this->name === null;
+        return empty($this->name);
     }
 
     public function getName(): string
@@ -112,42 +114,34 @@ class Class_ extends Definition
         return $this;
     }
 
-    public function setFlagsName(string $flagsName): self
+    public function addStmt($stmt)
     {
-        $this->flagsName = $flagsName;
+        switch (get_class($stmt)) {
+            case Constant::class:
+                $container = &$this->constant;
+                break;
+            case Property::class:
+                $container = &$this->property;
+                break;
+            case Method::class:
+                $container = &$this->method;
+                break;
+            case Interface_::class:
+                $container = &$this->implements;
+                break;
+            case Class_::class:
+                $container = &$this->extends;
+                break;
+            default:
+                throw new LogicException(sprintf('Unexpected node of type "%s"', get_class($stmt)));
+        }
+
+        $container[] = $stmt;
         return $this;
     }
 
-    public function setProperty(array $property): self
+    public function getNodeType(): string
     {
-        $this->property = $property;
-        return $this;
-    }
-
-    public function setMethod(array $method): self
-    {
-        $this->method = $method;
-        return $this;
-    }
-
-    public function setConstant(array $constant): self
-    {
-        $this->constant = $constant;
-        return $this;
-    }
-
-    public function setExtends(Class_ $extends): self
-    {
-        $this->extends[] = $extends;
-        return $this;
-    }
-
-    /**
-     * @param array $implements
-     */
-    public function setImplements(string $implements): self
-    {
-        $this->implements[] = $implements;
-        return $this;
+        return 'Class';
     }
 }
