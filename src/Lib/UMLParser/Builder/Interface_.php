@@ -4,7 +4,9 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Builder;
+namespace DevHelper\Lib\UMLParser\Builder;
+
+use LogicException;
 
 class Interface_ extends Definition
 {
@@ -33,12 +35,6 @@ class Interface_ extends Definition
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-        return $this;
     }
 
     /**
@@ -90,5 +86,30 @@ class Interface_ extends Definition
     {
         $this->methods = $methods;
         return $this;
+    }
+
+    public function addStmt($stmt)
+    {
+        switch (get_class($stmt)) {
+            case Constant::class:
+                $container = &$this->constants;
+                break;
+            case Method::class:
+                $container = &$this->methods;
+                break;
+            case Interface_::class:
+                $container = &$this->extends;
+                break;
+            default:
+                throw new LogicException(sprintf('Unexpected node of type "%s"', get_class($stmt)));
+        }
+
+        $container[] = $stmt;
+        return $this;
+    }
+
+    public function getNodeType(): string
+    {
+        return 'Interface';
     }
 }

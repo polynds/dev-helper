@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib\Parser;
+namespace DevHelper\Lib\PHPParser;
 
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
@@ -45,7 +45,6 @@ class Ast
         $traverser = new NodeTraverser();
         $visitorMetadata = new VisitorMetadata();
         $visitorMetadata->className = $className;
-        // User could modify or replace the node vistors by Hyperf\Di\Aop\AstVisitorRegistry.
         $queue = clone AstVisitorRegistry::getQueue();
         foreach ($queue as $string) {
             $visitor = new $string($visitorMetadata);

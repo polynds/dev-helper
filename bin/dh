@@ -3,18 +3,7 @@
 /**
  * happy coding!!!
  */
-$autoloadFiles = [
-    __DIR__ . '/../../../autoload.php',
-    __DIR__ . '/../autoload.php',
-    __DIR__ . '/../vendor/autoload.php',
-];
-
-foreach ($autoloadFiles as $file) {
-    if (file_exists($file)) {
-        require_once $file;
-        break;
-    }
-}
+require_once __DIR__ . '/../vendor/autoload.php';
 
 ! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
 ! defined('SRC_PATH') && define('SRC_PATH', BASE_PATH . '/src');

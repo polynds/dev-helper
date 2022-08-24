@@ -8,7 +8,7 @@ namespace DevHelper\Plugin\GenerateDiagram;
 
 use DevHelper\Lib\Console\AbstractCommand;
 use DevHelper\Lib\File\FileFinder;
-use DevHelper\Lib\Parser\ClassParser;
+use DevHelper\Lib\PHPParser\ClassParser;
 
 class GenerateDiagramCommand extends AbstractCommand
 {

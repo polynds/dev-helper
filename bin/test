@@ -1,0 +1,68 @@
+#!/usr/bin/env php
+<?php
+/**
+ * happy coding!!!
+ */
+namespace DevHelper;
+
+use DevHelper\Lib\File\FileWriter;
+use DevHelper\Lib\UMLParser\Builder\Class_;
+use DevHelper\Lib\UMLParser\Builder\Method;
+use DevHelper\Lib\UMLParser\Builder\Modifiers;
+use DevHelper\Lib\UMLParser\Builder\Namespace_;
+use DevHelper\Lib\UMLParser\Builder\Param;
+use DevHelper\Lib\UMLParser\Builder\Property;
+use DevHelper\Lib\UMLParser\BuilderFactory;
+use DevHelper\Lib\UMLParser\PrettyPrinter;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
+! defined('SRC_PATH') && define('SRC_PATH', BASE_PATH . '/src');
+! defined('PLUGIN_PATH') && define('PLUGIN_PATH', SRC_PATH . '/Plugin');
+! defined('BIN_PATH') && define('BIN_PATH', BASE_PATH . '/bin');
+! defined('CONFIG_PATH') && define('CONFIG_PATH', SRC_PATH . '/Config');
+
+$builder = new BuilderFactory();
+$uml = $builder->uml('leitu')->setScale(0.7)->setTitle('kuangjian test')->addStmt(
+    (new Namespace_('DhHelper\\Name1'))->addStmt(
+        (new Class_('Foo1'))->addStmt(
+            (new Property('param1'))
+                ->setType('string')
+                ->setDefault(1)
+                ->setFlags(Modifiers::MODIFIER_PUBLIC)
+        )->addStmt(
+            (new Method('func1'))->setFlags(Modifiers::MODIFIER_PUBLIC)
+                ->addParams((new Param('param1'))->setDefault(1))
+                ->addParams((new Param('param2'))->setDefault(2))
+        )
+    )->addStmt(
+        (new Class_('Foo2'))->addStmt(
+            (new Property('param2'))
+                ->setType('string')
+                ->setDefault(2)
+                ->setFlags(Modifiers::MODIFIER_PUBLIC)
+        )->addStmt(
+            (new Method('func2'))->setFlags(Modifiers::MODIFIER_PUBLIC)
+                ->addParams((new Param('param1'))->setDefault(1))
+                ->addParams((new Param('param2'))->setDefault(2))
+        )
+    )
+)->addStmt(
+    (new Namespace_('DhHelper\\Name2'))->addStmt(
+        (new Class_('Foo3'))->addStmt(
+            (new Property('param3'))
+                ->setType('string')
+                ->setDefault(3)
+                ->setFlags(Modifiers::MODIFIER_PUBLIC)
+        )->addStmt(
+            (new Method('func3'))->setFlags(Modifiers::MODIFIER_PUBLIC)
+                ->addParams((new Param('param1'))->setType('int')->setDefault(1))
+                ->addParams((new Param('param2'))->setType('int')->setDefault(2))
+        )
+    )
+);
+var_dump($uml);
+$p = new PrettyPrinter($uml);
+var_dump($p->print());
+FileWriter::write($uml->getFileName(), $p->print());

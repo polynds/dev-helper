@@ -22,11 +22,6 @@ class ComposerFactory
         $this->path = $path;
     }
 
-    public static function with(Composer $composer, string $path): self
-    {
-        return new static($composer,$path);
-    }
-
     public function writeComposerJSON()
     {
         JsonFile::write($this->path . DIRECTORY_SEPARATOR . $this->fileName, $this->composer->toArray());

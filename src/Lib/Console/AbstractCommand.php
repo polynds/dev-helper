@@ -96,8 +96,6 @@ abstract class AbstractCommand extends SymfonyCommand
 
     /**
      * Prompt the user for input with auto completion.
-     *
-     * @param null|mixed $default
      */
     public function anticipate(string $question, array $choices, $default = null)
     {
@@ -106,8 +104,6 @@ abstract class AbstractCommand extends SymfonyCommand
 
     /**
      * Prompt the user for input with auto completion.
-     *
-     * @param null|mixed $default
      */
     public function askWithCompletion(string $question, array $choices, $default = null)
     {
@@ -132,7 +128,6 @@ abstract class AbstractCommand extends SymfonyCommand
 
     /**
      * Give the user a multiple choice from an array of answers.
-     * @param null|mixed $default
      */
     public function choiceMultiple(
         string $question,
@@ -149,8 +144,6 @@ abstract class AbstractCommand extends SymfonyCommand
 
     /**
      * Give the user a single choice from an array of answers.
-     *
-     * @param null|mixed $default
      */
     public function choice(
         string $question,
@@ -163,9 +156,6 @@ abstract class AbstractCommand extends SymfonyCommand
 
     /**
      * Format input to textual table.
-     *
-     * @param mixed $rows
-     * @param mixed $tableStyle
      */
     public function table(array $headers, array $rows, $tableStyle = 'default', array $columnStyles = []): void
     {

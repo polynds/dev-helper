@@ -13,6 +13,7 @@ class JsonFile
 {
     public static function filePutContentsIfModified(string $path, string $content): int
     {
+        $success = true;
         $currentContent = @file_get_contents($path);
         if ($currentContent === false || $currentContent !== $content) {
             $success = file_put_contents($path, $content);

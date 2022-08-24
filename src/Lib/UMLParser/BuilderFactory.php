@@ -4,17 +4,23 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
-namespace DevHelper\Lib;
+namespace DevHelper\Lib\UMLParser;
 
-use DevHelper\Lib\Builder\Class_;
-use DevHelper\Lib\Builder\Interface_;
-use DevHelper\Lib\Builder\Method;
-use DevHelper\Lib\Builder\Namespace_;
-use DevHelper\Lib\Builder\Param;
-use DevHelper\Lib\Builder\Property;
+use DevHelper\Lib\UMLParser\Builder\Class_;
+use DevHelper\Lib\UMLParser\Builder\Interface_;
+use DevHelper\Lib\UMLParser\Builder\Method;
+use DevHelper\Lib\UMLParser\Builder\Namespace_;
+use DevHelper\Lib\UMLParser\Builder\Param;
+use DevHelper\Lib\UMLParser\Builder\Property;
+use DevHelper\Lib\UMLParser\Builder\UML;
 
 class BuilderFactory
 {
+    public function uml(string $name): UML
+    {
+        return new UML($name);
+    }
+
     public function class(string $name): Class_
     {
         return new Class_($name);
