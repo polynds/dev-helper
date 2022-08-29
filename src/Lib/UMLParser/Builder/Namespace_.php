@@ -13,9 +13,14 @@ class Namespace_ extends Definition
     protected string $name = '';
 
     /**
-     * @var Class_[]|Interface_[]
+     * @var Class_[]
      */
     protected array $classes = [];
+
+    /**
+     * @var Interface_[]
+     */
+    protected array $interfaces = [];
 
     public function __construct(string $name)
     {
@@ -28,18 +33,29 @@ class Namespace_ extends Definition
     }
 
     /**
-     * @return Class_[]|Interface_[]
+     * @return Class_[]
      */
     public function getClasses(): array
     {
         return $this->classes;
     }
 
+    /**
+     * @return Interface_[]
+     */
+    public function getInterfaces(): array
+    {
+        return $this->interfaces;
+    }
+
     public function addStmt($stmt)
     {
+        var_dump(get_class($stmt));
         switch (get_class($stmt)) {
-            case Class_::class:
             case Interface_::class:
+                $container = &$this->interfaces;
+                break;
+            case Class_::class:
                 $container = &$this->classes;
                 break;
             default:

@@ -12,7 +12,7 @@ class Property implements Builder
 {
     protected string $name;
 
-    protected int $flags = 0;
+    protected Modifiers $flags;
 
     protected $type;
 
@@ -21,6 +21,7 @@ class Property implements Builder
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->flags = (new Modifiers(Modifiers::MODIFIER_PUBLIC));
     }
 
     public function getName(): string
@@ -28,14 +29,14 @@ class Property implements Builder
         return $this->name;
     }
 
-    public function getFlags(): int
+    public function getFlags(): Modifiers
     {
         return $this->flags;
     }
 
-    public function setFlags(int $flags): self
+    public function setFlags(Modifiers $modifiers): self
     {
-        $this->flags = $flags;
+        $this->flags = $modifiers;
         return $this;
     }
 

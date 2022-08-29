@@ -12,21 +12,19 @@ class Method implements Builder
 {
     protected string $name;
 
-    protected int $flags = 0;
+    protected Modifiers $flags;
 
     /**
      * @var Param[]
      */
     protected array $params = [];
 
-    /**
-     * @var Class_|Interface_
-     */
-    protected $returnType;
+    protected string $returnType = '';
 
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->flags = (new Modifiers(Modifiers::MODIFIER_PUBLIC));
     }
 
     public function getName(): string
@@ -34,12 +32,12 @@ class Method implements Builder
         return $this->name;
     }
 
-    public function getFlags(): int
+    public function getFlags(): Modifiers
     {
         return $this->flags;
     }
 
-    public function setFlags(int $flags): self
+    public function setFlags(Modifiers $flags): self
     {
         $this->flags = $flags;
         return $this;
@@ -59,18 +57,12 @@ class Method implements Builder
         return $this;
     }
 
-    /**
-     * @return Class_|Interface_
-     */
-    public function getReturnType()
+    public function getReturnType(): string
     {
         return $this->returnType;
     }
 
-    /**
-     * @param Class_|Interface_ $returnType
-     */
-    public function setReturnType($returnType): self
+    public function setReturnType(string $returnType): self
     {
         $this->returnType = $returnType;
         return $this;

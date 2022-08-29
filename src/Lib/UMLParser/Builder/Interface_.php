@@ -13,7 +13,7 @@ class Interface_ extends Definition
     protected string $name;
 
     /**
-     * @var Interface_[]
+     * @var string[]
      */
     protected array $extends = [];
 
@@ -37,20 +37,14 @@ class Interface_ extends Definition
         return $this->name;
     }
 
-    /**
-     * @return Interface_[]
-     */
     public function getExtends(): array
     {
         return $this->extends;
     }
 
-    /**
-     * @param Interface_[] $extends
-     */
-    public function setExtends(array $extends): self
+    public function addExtend(string $extends): self
     {
-        $this->extends = $extends;
+        $this->extends[] = $extends;
         return $this;
     }
 
@@ -96,9 +90,6 @@ class Interface_ extends Definition
                 break;
             case Method::class:
                 $container = &$this->methods;
-                break;
-            case Interface_::class:
-                $container = &$this->extends;
                 break;
             default:
                 throw new LogicException(sprintf('Unexpected node of type "%s"', get_class($stmt)));
