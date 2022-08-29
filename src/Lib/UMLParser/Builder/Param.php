@@ -10,8 +10,6 @@ use DevHelper\Lib\UMLParser\Builder;
 
 class Param implements Builder
 {
-    protected int $flags = 0;
-
     protected $type;
 
     protected string $name;
@@ -26,17 +24,6 @@ class Param implements Builder
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getFlags(): int
-    {
-        return $this->flags;
-    }
-
-    public function setFlags(int $flags): self
-    {
-        $this->flags = $flags;
-        return $this;
     }
 
     /**

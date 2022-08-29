@@ -12,12 +12,19 @@ class UML extends Definition
 {
     protected string $ext = '.puml';
 
+    protected string $theme = 'none';
+
     protected string $name;
 
     /**
      * @var Class_[]
      */
     protected array $classes = [];
+
+    /**
+     * @var Interface_[]
+     */
+    protected array $interfaces = [];
 
     /**
      * @var Namespace_[]
@@ -36,6 +43,14 @@ class UML extends Definition
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Interface_[]
+     */
+    public function getInterfaces(): array
+    {
+        return $this->interfaces;
     }
 
     /**
@@ -76,9 +91,23 @@ class UML extends Definition
         return $this;
     }
 
+    public function getTheme(): string
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(string $theme): self
+    {
+        $this->theme = $theme;
+        return $this;
+    }
+
     public function addStmt($stmt)
     {
         switch (get_class($stmt)) {
+            case Interface_::class:
+                $container = &$this->interfaces;
+                break;
             case Class_::class:
                 $container = &$this->classes;
                 break;

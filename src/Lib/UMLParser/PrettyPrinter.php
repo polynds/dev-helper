@@ -43,56 +43,38 @@ class PrettyPrinter
         }
     }
 
-    protected function pModifiers(int $modifiers): string
+    protected function pModifiers(Modifiers $modifiers): string
     {
-        return ($modifiers & Modifiers::MODIFIER_FINAL ? 'final ' : '')
-        . ($modifiers & Modifiers::MODIFIER_ABSTRACT ? 'abstract ' : '')
-        . ($modifiers & Modifiers::MODIFIER_PUBLIC ? 'public ' : '')
-        . ($modifiers & Modifiers::MODIFIER_PROTECTED ? 'protected ' : '')
-        . ($modifiers & Modifiers::MODIFIER_PRIVATE ? 'private ' : '')
-        . ($modifiers & Modifiers::MODIFIER_STATIC ? 'static ' : '')
-        . ($modifiers & Modifiers::MODIFIER_READONLY ? 'readonly ' : '');
+        return ($modifiers->isFinal() ? 'final ' : '')
+        . ($modifiers->isAbstract() ? 'abstract ' : '')
+        . ($modifiers->isPublic() ? '+ public ' : '')
+        . ($modifiers->isProtected() ? 'protected ' : '')
+        . ($modifiers->isPrivate() ? '- private ' : '')
+        . ($modifiers->isStatic() ? 'static ' : '')
+        . ($modifiers->isReadonly() ? 'readonly ' : '');
     }
 
-    protected function pExtends($node): string
+    protected function pExtends(array $extends): string
     {
-        switch (get_class($node)) {
-            case Interface_::class:
-                /** @var Interface_ $class */
-                $class = $node;
-                $extends = $class->getExtends();
-                break;
-            case Class_::class:
-                /** @var Class_ $class */
-                $class = $node;
-                $extends = $class->getExtends();
-                break;
-            default:
-                throw new InvalidArgumentException('Other types cannot get inherited data.');
-        }
-        $set = [];
-        foreach ($extends as $extend) {
-            $set[] = $extend->getName();
-        }
-        return implode(',', $set);
+        return implode(',', $extends);
     }
 
-    protected function pImplements($node): string
+    protected function pImplements(array $implements): string
     {
-        switch (get_class($node)) {
-            case Class_::class:
-                /** @var Class_ $class */
-                $class = $node;
-                $implements = $class->getImplements();
-                break;
-            default:
-                throw new InvalidArgumentException('Other types cannot get implemented data.');
-        }
-        $set = [];
-        foreach ($implements as $implement) {
-            $set[] = $implement->getName();
-        }
-        return implode(',', $set);
+//        switch (get_class($node)) {
+//            case Class_::class:
+//                /** @var Class_ $class */
+//                $class = $node;
+//                $implements = $class->getImplements();
+//                break;
+//            default:
+//                throw new InvalidArgumentException('Other types cannot get implemented data.');
+//        }
+//        $set = [];
+//        foreach ($implements as $implement) {
+//            $set[] = $implement->getName();
+//        }
+        return implode(',', $implements);
     }
 
     protected function pStmts(array $stmts = []): string
@@ -102,15 +84,16 @@ class PrettyPrinter
 
     protected function pClass(Class_ $class_): string
     {
-        return $this->pModifiers($class_->getFlags())
-            . ' class ' . $class_->getName()
-            . (! empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_) : '')
-            . (! empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_) : '')
+        return self::space(4)
+            . $this->pModifiers($class_->getFlags())
+            . 'class ' . $class_->getName()
+            . (! empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_->getExtends()) : '')
+            . (! empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_->getImplements()) : '')
             . ' { '
             . $this->pConstants($class_->getConstant())
             . $this->pPropertys($class_->getProperty())
             . $this->pMethods($class_->getMethod())
-            . ' }';
+            . self::space(4) . self::lf(' }');
     }
 
     protected function pClasses(array $classes): string
@@ -119,7 +102,7 @@ class PrettyPrinter
         foreach ($classes as $class) {
             $data[] = $this->pClass($class);
         }
-        return PHP_EOL . implode(PHP_EOL, $data) . PHP_EOL;
+        return self::wb(self::lf(implode(PHP_EOL, $data)));
     }
 
     protected function pConstants(array $constants): string
@@ -128,7 +111,7 @@ class PrettyPrinter
         foreach ($constants as $constant) {
             $data[] = $this->pConstant($constant);
         }
-        return implode(PHP_EOL, $data) . PHP_EOL;
+        return self::lf(implode(PHP_EOL, $data));
     }
 
     protected function pConstant(Constant $constant): string
@@ -142,8 +125,27 @@ class PrettyPrinter
     {
     }
 
-    protected function pInterface()
+    protected function pInterfaces(array $interfaces): string
     {
+        $data = [];
+        foreach ($interfaces as $interface) {
+            $data[] = $this->pInterface($interface);
+        }
+        if (empty($data)) {
+            return '';
+        }
+        return self::wb(self::lf(implode(PHP_EOL, $data)));
+    }
+
+    protected function pInterface(Interface_ $interface): string
+    {
+        return self::space(4)
+            . ' interface ' . $interface->getName()
+            . (! empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
+            . ' { '
+            . $this->pConstants($interface->getConstants())
+            . $this->pMethods($interface->getMethods())
+            . self::space(4) . self::lf(' }');
     }
 
     protected function pMethods(array $methods): string
@@ -157,19 +159,21 @@ class PrettyPrinter
 
     protected function pMethod(Method $method): string
     {
-        return $this->pModifiers($method->getFlags())
+        return self::space(8)
+            . $this->pModifiers($method->getFlags())
             . 'function ' . $method->getName()
             . '('
             . $this->pParams($method->getParams())
-            . ');' . PHP_EOL;
+            . self::lf(')' . ($method->getReturnType() ? ": {$method->getReturnType()}" : '') . ';');
     }
 
     protected function pNamespace(Namespace_ $namespace_): string
     {
         return 'namespace ' . $namespace_->getName()
             . ' { '
+            . $this->pInterfaces($namespace_->getInterfaces())
             . $this->pClasses($namespace_->getClasses())
-            . ' }';
+            . self::lf('}');
     }
 
     protected function pNamespaces(array $namespaces): string
@@ -178,7 +182,7 @@ class PrettyPrinter
         foreach ($namespaces as $namespace) {
             $data[] = $this->pNamespace($namespace);
         }
-        return implode(PHP_EOL, $data) . PHP_EOL;
+        return self::lf(implode(PHP_EOL, $data));
     }
 
     protected function pParams(array $params): string
@@ -187,42 +191,70 @@ class PrettyPrinter
         foreach ($params as $param) {
             $data[] = $this->pParam($param);
         }
-        return implode(',', $data);
+        return implode(', ', $data);
     }
 
     protected function pParam(Param $param): string
     {
-        return $this->pModifiers($param->getFlags())
-            . ($param->getType() ?: '')
-            . ' ' . $param->getName()
+        return ($param->getType() ? $param->getType() . self::space(1) : '')
+            . self::dollar() . $param->getName()
             . ($param->getDefault() ? ' = ' . $param->getDefault() : '');
     }
 
-    protected function pPropertys(array $properties)
+    protected function pPropertys(array $properties): string
     {
         $data = [];
         foreach ($properties as $property) {
             $data[] = $this->pProperty($property);
         }
-        return implode(PHP_EOL, $data) . PHP_EOL;
+        return self::lf(implode(PHP_EOL, $data));
     }
 
     protected function pProperty(Property $property): string
     {
-        return $this->pModifiers($property->getFlags())
+        return self::space(8)
+            . $this->pModifiers($property->getFlags())
             . ($property->getType() ?: '')
-            . ' ' . $property->getName()
-            . ($property->getDefault() ? '=' . $property->getDefault() : '')
+            . ' ' . self::dollar() . $property->getName()
+            . ($property->getDefault() ? ' = ' . $property->getDefault() : '')
             . ';';
+    }
+
+    protected static function dollar(): string
+    {
+        return '$';
     }
 
     protected function pUML(UML $UML): string
     {
-        return '@startuml' . PHP_EOL
-            . 'scale ' . $UML->getScale() . PHP_EOL
-            . 'title:' . $UML->getTitle() . PHP_EOL . PHP_EOL
-            . $this->pNamespaces($UML->getNamespaces()) . PHP_EOL
-            . $this->pClasses($UML->getClasses()) . PHP_EOL
+        return self::lf('@startuml')
+            . self::lf('scale ' . $UML->getScale())
+            . self::lf('!theme ' . $UML->getTheme())
+            . self::lf(self::lf('title:' . $UML->getTitle()))
+            . self::lf($this->pNamespaces($UML->getNamespaces()))
+            . self::lf($this->pInterfaces($UML->getInterfaces()))
+            . self::lf($this->pClasses($UML->getClasses()))
             . '@enduml';
+    }
+
+    /**
+     * Line feed.
+     */
+    protected static function lf(string $content): string
+    {
+        return $content . PHP_EOL;
+    }
+
+    /**
+     * Wrap before.
+     */
+    protected static function wb(string $content): string
+    {
+        return PHP_EOL . $content;
+    }
+
+    protected static function space(int $length = 1): string
+    {
+        return str_pad('', $length, ' ');
     }
 }

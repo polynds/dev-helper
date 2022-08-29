@@ -12,7 +12,7 @@ class Class_ extends Definition
 {
     protected string $name;
 
-    protected int $flags = 0;
+    protected Modifiers $flags;
 
     /**
      * @var Property[]
@@ -27,18 +27,19 @@ class Class_ extends Definition
     protected array $constant = [];
 
     /**
-     * @var Class_[]
+     * @var string
      */
     protected array $extends = [];
 
     /**
-     * @var Interface_[]
+     * @var string
      */
     protected array $implements = [];
 
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->flags = (new Modifiers(Modifiers::NONE));
     }
 
     public function isAbstract(): bool
@@ -66,7 +67,7 @@ class Class_ extends Definition
         return $this->name;
     }
 
-    public function getFlags(): int
+    public function getFlags(): Modifiers
     {
         return $this->flags;
     }
@@ -108,9 +109,21 @@ class Class_ extends Definition
         return $this->implements;
     }
 
-    public function setFlags(int $flags): self
+    public function setFlags(Modifiers $modifiers): self
     {
-        $this->flags = $flags;
+        $this->flags = $modifiers;
+        return $this;
+    }
+
+    public function addExtend(string $extends): self
+    {
+        $this->extends[] = $extends;
+        return $this;
+    }
+
+    public function addImplement(string $implements): self
+    {
+        $this->implements[] = $implements;
         return $this;
     }
 
@@ -125,9 +138,6 @@ class Class_ extends Definition
                 break;
             case Method::class:
                 $container = &$this->method;
-                break;
-            case Interface_::class:
-                $container = &$this->implements;
                 break;
             case Class_::class:
                 $container = &$this->extends;
