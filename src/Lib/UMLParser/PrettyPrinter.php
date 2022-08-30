@@ -19,6 +19,20 @@ use InvalidArgumentException;
 
 class PrettyPrinter
 {
+    protected const CLASS_NAME = 'class';
+
+    protected const METHOD_NAME = 'function';
+
+    protected const NAMESPACE_NAME = 'namespace';
+
+    protected const EXTENDS_NAME = 'extends';
+
+    protected const IMPLEMENTS_NAME = 'implements';
+
+    protected const CONST_NAME = 'const';
+
+    protected const INTERFACE_NAME = 'interface';
+
     protected UML $uml;
 
     public function __construct(UML $uml)
@@ -29,18 +43,6 @@ class PrettyPrinter
     public function print(): string
     {
         return $this->pUML($this->uml);
-    }
-
-    protected function dfs()
-    {
-        $stack = array_merge($this->uml->getClasses(), $this->uml->getNamespaces());
-        while (count($stack) > 0) {
-            /** @var ?Builder $def */
-            $def = array_pop($stack);
-            if (method_exists($this, "p{$def->getNodeType()}")) {
-                $method = $this->{"p{$def->getNodeType()}"}();
-            }
-        }
     }
 
     protected function pModifiers(Modifiers $modifiers): string
@@ -196,7 +198,7 @@ class PrettyPrinter
 
     protected function pParam(Param $param): string
     {
-        return ($param->getType() ? $param->getType() . self::space(1) : '')
+        return ($param->getType() ? $param->getType() . self::space() : '')
             . self::dollar() . $param->getName()
             . ($param->getDefault() ? ' = ' . $param->getDefault() : '');
     }
@@ -215,7 +217,7 @@ class PrettyPrinter
         return self::space(8)
             . $this->pModifiers($property->getFlags())
             . ($property->getType() ?: '')
-            . ' ' . self::dollar() . $property->getName()
+            . self::space() . self::dollar() . $property->getName()
             . ($property->getDefault() ? ' = ' . $property->getDefault() : '')
             . ';';
     }
@@ -235,6 +237,26 @@ class PrettyPrinter
             . self::lf($this->pInterfaces($UML->getInterfaces()))
             . self::lf($this->pClasses($UML->getClasses()))
             . '@enduml';
+    }
+
+    protected static function leftParenthesis(): string
+    {
+        return '(';
+    }
+
+    protected static function rightParenthesis(): string
+    {
+        return ')';
+    }
+
+    protected static function leftBrace(): string
+    {
+        return '{';
+    }
+
+    protected static function rightBrace(): string
+    {
+        return '}';
     }
 
     /**
