@@ -50,7 +50,6 @@ class Namespace_ extends Definition
 
     public function addStmt($stmt)
     {
-        var_dump(get_class($stmt));
         switch (get_class($stmt)) {
             case Interface_::class:
                 $container = &$this->interfaces;

@@ -12,7 +12,7 @@ class UML extends Definition
 {
     protected string $ext = '.puml';
 
-    protected string $theme = 'none';
+    protected ?string $theme = null;
 
     protected string $name;
 
@@ -38,6 +38,8 @@ class UML extends Definition
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->scale = 0.7;
+        $this->title = 'dh_uml';
     }
 
     public function getName(): string
@@ -91,14 +93,14 @@ class UML extends Definition
         return $this;
     }
 
-    public function getTheme(): string
+    public function getTheme(): ?string
     {
         return $this->theme;
     }
 
-    public function setTheme(string $theme): self
+    public function setTheme(UMLTheme $theme): self
     {
-        $this->theme = $theme;
+        $this->theme = $theme->getValue();
         return $this;
     }
 
@@ -120,6 +122,11 @@ class UML extends Definition
 
         $container[] = $stmt;
         return $this;
+    }
+
+    public function addNamespace(Namespace_ $namespaces)
+    {
+        $this->namespaces[] = $namespaces;
     }
 
     public function getNodeType(): string

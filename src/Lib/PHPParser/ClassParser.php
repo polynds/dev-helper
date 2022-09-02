@@ -48,7 +48,7 @@ class ClassParser
                     continue;
                 }
 
-                $data[$namespace][] = [
+                $data = [
                     'namespace' => $namespace,
                     'class' => $className,
                     'interface' => $interface,
