@@ -231,7 +231,7 @@ class PrettyPrinter
     {
         return self::lf('@startuml')
             . self::lf('scale ' . $UML->getScale())
-            . self::lf('!theme ' . $UML->getTheme())
+            . ($UML->getTheme() ? self::lf('!theme ' . $UML->getTheme()) : '')
             . self::lf(self::lf('title:' . $UML->getTitle()))
             . self::lf($this->pNamespaces($UML->getNamespaces()))
             . self::lf($this->pInterfaces($UML->getInterfaces()))

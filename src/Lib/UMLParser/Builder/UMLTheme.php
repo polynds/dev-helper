@@ -89,4 +89,16 @@ class UMLTheme
     public const UNITED = 'united';
 
     public const VIBRANT = 'vibrant';
+
+    protected string $value;
+
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 }

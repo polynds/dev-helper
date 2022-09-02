@@ -7,8 +7,6 @@ declare(strict_types=1);
 namespace DevHelper\Plugin\GenerateDiagram;
 
 use DevHelper\Lib\Console\AbstractCommand;
-use DevHelper\Lib\File\FileFinder;
-use DevHelper\Lib\PHPParser\ClassParser;
 
 class GenerateDiagramCommand extends AbstractCommand
 {
@@ -16,17 +14,30 @@ class GenerateDiagramCommand extends AbstractCommand
 
     public function handle()
     {
-        $path = SRC_PATH;
-        $fileFinder = new FileFinder();
-        $files = $fileFinder->findFiles($path);
-        var_dump($files);
-
-        $parser = new ClassParser();
-        foreach ($files as $file) {
-            $stmts = $parser->parse(file_get_contents($file));
-            $data = $parser->parseClassByStmts($stmts);
-            var_dump($data);
-        }
+        $this->line('欢迎使用自动生成UML类图工具！');
+//        $path = $this->askAndValidate('请输入操作目录:', static function ($value) {
+//            if (! $value) {
+//                throw new \InvalidArgumentException(
+//                    '输入错误'
+//                );
+//            }
+//            if (! is_dir($value)) {
+//                throw new \InvalidArgumentException(
+//                    '不是一个正确的目录'
+//                );
+//            }
+//            if (! is_writeable($value)) {
+//                throw new \InvalidArgumentException(
+//                    '不是一个可操作的目录'
+//                );
+//            }
+//            return $value;
+//        }, 3);
+        $path = '/mnt/d/phppro/kj/dev-helper/src';
+        $this->line('开始生成，请稍等...');
+        $uml = (new GenerateDiagram($path))->build();
+        $this->line('操作成功！UML文件已存放至根目录！');
+        $uml->output();
     }
 
     protected function configure()
