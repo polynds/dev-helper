@@ -10,8 +10,12 @@ use DevHelper\Lib\File\FileFinder;
 use DevHelper\Lib\File\FileWriter;
 use DevHelper\Lib\PHPParser\ClassParser;
 use DevHelper\Lib\UMLParser\Builder\Class_;
+use DevHelper\Lib\UMLParser\Builder\Constant;
+use DevHelper\Lib\UMLParser\Builder\Interface_;
+use DevHelper\Lib\UMLParser\Builder\Method;
 use DevHelper\Lib\UMLParser\Builder\Modifiers;
 use DevHelper\Lib\UMLParser\Builder\Namespace_;
+use DevHelper\Lib\UMLParser\Builder\Param;
 use DevHelper\Lib\UMLParser\Builder\Property;
 use DevHelper\Lib\UMLParser\Builder\UML;
 use DevHelper\Lib\UMLParser\Builder\UMLTheme;
@@ -62,27 +66,58 @@ class GenerateDiagram
     {
         foreach ($this->files as $file) {
             $stmts = $this->phpParser->parse(file_get_contents($file));
-            $class = $this->phpParser->parseClassByStmts($stmts);
-            if (empty($class)) {
+            $data = $this->phpParser->parseClassByStmts($stmts);
+            if (empty($data)) {
                 continue;
             }
 
-            if (! empty($class['namespace'])) {
-                $namespace = (new Namespace_($class['namespace']));
-            }
-            if (! empty($class['class']) && $namespace) {
-                $namespace->addStmt(
-                    (new Class_($class['class']))
-                        ->addStmt(
-                            (new Property('param1'))
-                                ->setType('string')
-                                ->setDefault(1)
-                                ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
-                        )
-                );
+            $namespace = (new Namespace_($data['namespace']['name']));
+            if (! empty($data['classes'])) {
+                foreach ($data['classes'] as $class) {
+                    $class_ = (new Class_($class['name']));
+                    foreach ($class['constants'] as $constant) {
+                        $class_->addStmt(
+                            (new Constant($constant['name']))->setFlags((new Modifiers((int) $constant['flags'])))
+                        );
+                    }
+
+                    foreach ($class['propertes'] as $property) {
+                        $class_->addStmt(
+                            (new Property($property['name']))
+                                ->setType($property['type'])
+                                ->setFlags(new Modifiers((int) $property['flags']))
+                        );
+                    }
+
+                    foreach ($class['methods'] as $method) {
+                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int) $method['flags'])));
+                        foreach ($method['params'] as $param) {
+                            $method_->addParams((new Param($param['name']))->setType($param['type']));
+                        }
+                        $class_->addStmt($method_);
+                    }
+                    $namespace->addStmt($class_);
+                }
             }
 
-            if ($namespace) {
+            if (! empty($data['interfaces'])) {
+                foreach ($data['interfaces'] as $interface) {
+                    $interface_ = (new Interface_($interface['name']));
+                    foreach ($interface['constants'] as $constant) {
+                        $interface_->addStmt(
+                            (new Constant($constant['name']))->setFlags((new Modifiers((int) $constant['flags'])))
+                        );
+                    }
+
+                    foreach ($interface['methods'] as $method) {
+                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int) $method['flags'])));
+                        foreach ($method['params'] as $param) {
+                            $method_->addParams((new Param($param['name']))->setType($param['type']));
+                        }
+                        $interface_->addStmt($method_);
+                    }
+                    $namespace->addStmt($interface_);
+                }
                 $this->uml->addStmt($namespace);
             }
         }
