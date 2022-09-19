@@ -47,7 +47,7 @@ class GenerateDiagram
         $this->phpParser = new ClassParser();
         $fileFinder = new FileFinder();
         $this->files = $fileFinder->findFiles($path);
-        $this->uml = (new BuilderFactory())->uml($umlName)->setTheme((new UMLTheme(UMLTheme::BHEPRINT)));
+        $this->uml = (new BuilderFactory())->uml($umlName)->setTheme((new UMLTheme(UMLTheme::CYBORG)));
     }
 
     public function build(): GenerateDiagram
