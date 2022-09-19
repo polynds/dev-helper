@@ -12,6 +12,8 @@ class Namespace_ extends Definition
 {
     protected string $name = '';
 
+    protected string $color = '#ffffff';
+
     /**
      * @var Class_[]
      */
@@ -46,6 +48,17 @@ class Namespace_ extends Definition
     public function getInterfaces(): array
     {
         return $this->interfaces;
+    }
+
+    public function getColor(): string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+        return $this;
     }
 
     public function addStmt($stmt)
