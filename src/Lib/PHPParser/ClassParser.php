@@ -46,14 +46,14 @@ class ClassParser
                                 $propertes[] = [
                                     'flags' => $nodeStmts->flags,
                                     'name' => $nodeStmts->props[0]->name->toString(),
-                                    'type' => $nodeStmts->type->name,
+                                    'type' => $nodeStmts->type->name ?? '',
                                 ];
                             }
                             if ($nodeStmts instanceof ClassMethod) {
                                 $params = [];
                                 foreach ($nodeStmts->getParams() as $param) {
                                     $params[] = [
-                                        'type' => $param->type->name,
+                                        'type' => $param->type->name ?? '',
                                         'name' => $param->var->name,
                                     ];
                                 }
@@ -87,7 +87,7 @@ class ClassParser
                                 $params = [];
                                 foreach ($nodeStmts->getParams() as $param) {
                                     $params[] = [
-                                        'type' => $param->type->name,
+                                        'type' => $param->type->name ?? '',
                                         'name' => $param->var->name,
                                     ];
                                 }

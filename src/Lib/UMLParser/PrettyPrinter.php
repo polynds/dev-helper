@@ -50,7 +50,7 @@ class PrettyPrinter
         return ($modifiers->isFinal() ? 'final ' : '')
         . ($modifiers->isAbstract() ? 'abstract ' : '')
         . ($modifiers->isPublic() ? '+ public ' : '')
-        . ($modifiers->isProtected() ? 'protected ' : '')
+        . ($modifiers->isProtected() ? '- protected ' : '')
         . ($modifiers->isPrivate() ? '- private ' : '')
         . ($modifiers->isStatic() ? 'static ' : '')
         . ($modifiers->isReadonly() ? 'readonly ' : '');
@@ -144,7 +144,7 @@ class PrettyPrinter
         return self::space(4)
             . ' interface ' . $interface->getName()
             . (! empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
-            . ' { '
+            . self::lf(' { ')
             . $this->pConstants($interface->getConstants())
             . $this->pMethods($interface->getMethods())
             . self::space(4) . self::lf(' }');
@@ -166,7 +166,7 @@ class PrettyPrinter
             . 'function ' . $method->getName()
             . '('
             . $this->pParams($method->getParams())
-            . self::lf(')' . ($method->getReturnType() ? ": {$method->getReturnType()}" : '') . ';');
+            . ')' . ($method->getReturnType() ? ": {$method->getReturnType()}" : '') . ';';
     }
 
     protected function pNamespace(Namespace_ $namespace_): string
