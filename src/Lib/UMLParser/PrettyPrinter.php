@@ -171,7 +171,7 @@ class PrettyPrinter
 
     protected function pNamespace(Namespace_ $namespace_): string
     {
-        return 'namespace ' . $namespace_->getName()
+        return 'namespace ' . $namespace_->getName() . self::space() . $namespace_->getColor()
             . ' { '
             . $this->pInterfaces($namespace_->getInterfaces())
             . $this->pClasses($namespace_->getClasses())
