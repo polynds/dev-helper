@@ -47,7 +47,7 @@ class GenerateDiagram
         $this->phpParser = new ClassParser();
         $fileFinder = new FileFinder();
         $this->files = $fileFinder->findFiles($path);
-        $this->uml = (new BuilderFactory())->uml($umlName)->setTheme((new UMLTheme(UMLTheme::AWS_ORANGE)));
+        $this->uml = (new BuilderFactory())->uml($umlName)->setTheme((new UMLTheme(UMLTheme::BHEPRINT)));
     }
 
     public function build(): GenerateDiagram
@@ -67,6 +67,7 @@ class GenerateDiagram
         foreach ($this->files as $file) {
             $stmts = $this->phpParser->parse(file_get_contents($file));
             $data = $this->phpParser->parseClassByStmts($stmts);
+//            var_dump($data);die();
             if (empty($data)) {
                 continue;
             }
@@ -118,8 +119,8 @@ class GenerateDiagram
                     }
                     $namespace->addStmt($interface_);
                 }
-                $this->uml->addStmt($namespace);
             }
+            $this->uml->addStmt($namespace);
         }
     }
 }
