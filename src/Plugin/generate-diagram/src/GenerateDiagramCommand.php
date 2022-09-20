@@ -34,6 +34,7 @@ class GenerateDiagramCommand extends AbstractCommand
 //            return $value;
 //        }, 3);
         $path = '/mnt/d/phppro/kj/dev-helper/src/Lib/Console/Command/CreatePlugin/Composer';
+//        $path = '/mnt/d/phppro/kj/dev-helper/src';
         $this->line('开始生成，请稍等...');
         $uml = (new GenerateDiagram($path))->build();
         $this->line('操作成功！UML文件已存放至根目录！');

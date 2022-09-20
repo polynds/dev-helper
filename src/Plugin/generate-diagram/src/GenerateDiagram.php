@@ -78,7 +78,7 @@ class GenerateDiagram
                     $class_ = (new Class_($class['name']));
                     foreach ($class['constants'] as $constant) {
                         $class_->addStmt(
-                            (new Constant($constant['name']))->setFlags((new Modifiers((int) $constant['flags'])))
+                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int) $constant['flags'])))
                         );
                     }
 
@@ -106,7 +106,7 @@ class GenerateDiagram
                     $interface_ = (new Interface_($interface['name']));
                     foreach ($interface['constants'] as $constant) {
                         $interface_->addStmt(
-                            (new Constant($constant['name']))->setFlags((new Modifiers((int) $constant['flags'])))
+                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int) $constant['flags'])))
                         );
                     }
 
