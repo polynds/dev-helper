@@ -8,6 +8,7 @@ namespace DevHelper\Lib\UMLParser;
 
 use DevHelper\Lib\UMLParser\Builder\Class_;
 use DevHelper\Lib\UMLParser\Builder\Constant;
+use DevHelper\Lib\UMLParser\Builder\Definition;
 use DevHelper\Lib\UMLParser\Builder\Interface_;
 use DevHelper\Lib\UMLParser\Builder\Method;
 use DevHelper\Lib\UMLParser\Builder\Modifiers;
@@ -88,14 +89,14 @@ class PrettyPrinter
     {
         return self::space(4)
             . $this->pModifiers($class_->getFlags())
-            . 'class ' . $class_->getName()
+            . 'class ' . $class_->getName() . self::pColors($class_)
             . (! empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_->getExtends()) : '')
             . (! empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_->getImplements()) : '')
-            . ' { '
+            . self::lf(' { ')
             . $this->pConstants($class_->getConstant())
             . $this->pPropertys($class_->getProperty())
             . $this->pMethods($class_->getMethod())
-            . self::space(4) . self::lf(' }');
+            . self::space(4) . self::wb(' }');
     }
 
     protected function pClasses(array $classes): string
@@ -118,8 +119,9 @@ class PrettyPrinter
 
     protected function pConstant(Constant $constant): string
     {
-        return $this->pModifiers($constant->getFlags())
-            . 'const' . ($constant->getValue() ? '=' . $constant->getValue() : '')
+        return self::space(8)
+            . $this->pModifiers($constant->getFlags())
+            . 'const' . ($constant->getName() ? ' = ' . $constant->getValue() : '')
             . ';';
     }
 
@@ -142,12 +144,12 @@ class PrettyPrinter
     protected function pInterface(Interface_ $interface): string
     {
         return self::space(4)
-            . ' interface ' . $interface->getName()
+            . ' interface ' . $interface->getName() . self::pColors($interface)
             . (! empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
             . self::lf(' { ')
             . $this->pConstants($interface->getConstants())
             . $this->pMethods($interface->getMethods())
-            . self::space(4) . self::lf(' }');
+            . self::space(4) . self::wb(' }');
     }
 
     protected function pMethods(array $methods): string
@@ -169,9 +171,17 @@ class PrettyPrinter
             . ')' . ($method->getReturnType() ? ": {$method->getReturnType()}" : '') . ';';
     }
 
+    protected static function pColors(Definition $definition): string
+    {
+        if (method_exists($definition, 'getColor')) {
+            return self::space() . $definition->getColor();
+        }
+        return '';
+    }
+
     protected function pNamespace(Namespace_ $namespace_): string
     {
-        return 'namespace ' . $namespace_->getName() . self::space() . $namespace_->getColor()
+        return 'namespace ' . $namespace_->getName() . self::pColors($namespace_)
             . ' { '
             . $this->pInterfaces($namespace_->getInterfaces())
             . $this->pClasses($namespace_->getClasses())
@@ -262,7 +272,7 @@ class PrettyPrinter
     /**
      * Line feed.
      */
-    protected static function lf(string $content): string
+    protected static function lf(string $content = ''): string
     {
         return $content . PHP_EOL;
     }
@@ -270,7 +280,7 @@ class PrettyPrinter
     /**
      * Wrap before.
      */
-    protected static function wb(string $content): string
+    protected static function wb(string $content = ''): string
     {
         return PHP_EOL . $content;
     }

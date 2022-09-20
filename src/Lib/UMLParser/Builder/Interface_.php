@@ -12,6 +12,8 @@ class Interface_ extends Definition
 {
     protected string $name;
 
+    protected string $color = '';
+
     /**
      * @var string[]
      */
@@ -35,6 +37,17 @@ class Interface_ extends Definition
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getColor(): string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
+        return $this;
     }
 
     public function getExtends(): array

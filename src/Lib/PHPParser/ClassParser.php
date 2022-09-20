@@ -42,6 +42,15 @@ class ClassParser
                     if ($node instanceof Class_) {
                         $constants = $propertes = $methods = [];
                         foreach ($node->stmts as $nodeStmts) {
+                            if ($nodeStmts instanceof ClassConst) {
+                                foreach ($nodeStmts->consts as $const) {
+                                    $constants[] = [
+                                        'flags' => $nodeStmts->flags,
+                                        'name' => $const->name->name,
+                                        'value' => $const->value->value,
+                                    ];
+                                }
+                            }
                             if ($nodeStmts instanceof Property) {
                                 $propertes[] = [
                                     'flags' => $nodeStmts->flags,
@@ -74,13 +83,15 @@ class ClassParser
                     }
                     if ($node instanceof Interface_) {
                         $constants = $methods = [];
-
                         foreach ($node->stmts as $nodeStmts) {
                             if ($nodeStmts instanceof ClassConst) {
-                                $constants[] = [
-                                    'flags' => $nodeStmts->flags,
-                                    'name' => $nodeStmts->consts[0]->name->toString(),
-                                ];
+                                foreach ($nodeStmts->consts as $const) {
+                                    $constants[] = [
+                                        'flags' => $nodeStmts->flags,
+                                        'name' => $const->name->name,
+                                        'value' => $const->value->value,
+                                    ];
+                                }
                             }
 
                             if ($nodeStmts instanceof ClassMethod) {

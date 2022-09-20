@@ -12,7 +12,7 @@ class Namespace_ extends Definition
 {
     protected string $name = '';
 
-    protected string $color = '#ffffff';
+    protected string $color = '';
 
     /**
      * @var Class_[]
