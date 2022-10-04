@@ -67,7 +67,6 @@ class GenerateDiagram
         foreach ($this->files as $file) {
             $stmts = $this->phpParser->parse(file_get_contents($file));
             $data = $this->phpParser->parseClassByStmts($stmts);
-//            var_dump($data);die();
             if (empty($data)) {
                 continue;
             }
