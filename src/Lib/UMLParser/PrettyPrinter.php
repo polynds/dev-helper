@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * happy coding!!!
+ * happy coding.
  */
 namespace DevHelper\Lib\UMLParser;
 
@@ -92,11 +92,11 @@ class PrettyPrinter
             . 'class ' . $class_->getName() . self::pColors($class_)
             . (! empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_->getExtends()) : '')
             . (! empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_->getImplements()) : '')
-            . self::lf(' { ')
+            . '{ '
             . $this->pConstants($class_->getConstant())
             . $this->pPropertys($class_->getProperty())
             . $this->pMethods($class_->getMethod())
-            . self::space(4) . self::wb(' }');
+            . self::wb(self::space(4) . '}');
     }
 
     protected function pClasses(array $classes): string
@@ -105,7 +105,7 @@ class PrettyPrinter
         foreach ($classes as $class) {
             $data[] = $this->pClass($class);
         }
-        return self::wb(self::lf(implode(PHP_EOL, $data)));
+        return self::lf(self::wb(implode(PHP_EOL, $data)));
     }
 
     protected function pConstants(array $constants): string
@@ -144,12 +144,12 @@ class PrettyPrinter
     protected function pInterface(Interface_ $interface): string
     {
         return self::space(4)
-            . ' interface ' . $interface->getName() . self::pColors($interface)
+            . 'interface' . self::space() . $interface->getName() . self::pColors($interface)
             . (! empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
-            . self::lf(' { ')
+            . self::lf('{')
             . $this->pConstants($interface->getConstants())
             . $this->pMethods($interface->getMethods())
-            . self::space(4) . self::wb(' }');
+            . self::wb(self::space(4) . '}');
     }
 
     protected function pMethods(array $methods): string
@@ -182,7 +182,7 @@ class PrettyPrinter
     protected function pNamespace(Namespace_ $namespace_): string
     {
         return 'namespace ' . $namespace_->getName() . self::pColors($namespace_)
-            . ' { '
+            . '{'
             . $this->pInterfaces($namespace_->getInterfaces())
             . $this->pClasses($namespace_->getClasses())
             . self::lf('}');
