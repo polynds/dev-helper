@@ -35,11 +35,15 @@ class ClassParser
         foreach ($stmts as $stmt) {
             if ($stmt instanceof Namespace_) {
                 $classes = $interfaces = [];
+                var_dump($stmt->name->toString());
                 $namespace = [
                     'name' => $stmt->name->toString(),
                 ];
                 foreach ($stmt->stmts as $node) {
                     if ($node instanceof Class_) {
+                        if('DotGitIgnore' == $node->name->name){
+                            var_dump($stmt);die();
+                        }
                         $constants = $propertes = $methods = [];
                         foreach ($node->stmts as $nodeStmts) {
                             if ($nodeStmts instanceof ClassConst) {
@@ -122,7 +126,7 @@ class ClassParser
                     continue;
                 }
 
-                $data = [
+                $data[$stmt->name->toString()][] = [
                     'namespace' => $namespace,
                     'classes' => $classes,
                     'interfaces' => $interfaces,

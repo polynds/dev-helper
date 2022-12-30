@@ -29,6 +29,8 @@ class GenerateDiagram
 
     protected array $files;
 
+    protected array $callPath;
+
     protected ClassParser $phpParser;
 
     protected UML $uml;
@@ -53,6 +55,7 @@ class GenerateDiagram
     public function build(): GenerateDiagram
     {
         $this->traverse();
+        $this->bindCall();
         return $this;
     }
 
@@ -121,5 +124,9 @@ class GenerateDiagram
             }
             $this->uml->addStmt($namespace);
         }
+    }
+
+    protected function bindCall(){
+
     }
 }

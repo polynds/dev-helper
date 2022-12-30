@@ -6,10 +6,11 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
+use DevHelper\Lib\Console\Command\CreatePlugin\Composer\TextClass;
 use DevHelper\Lib\Exception\FileNotWritableException;
 use DevHelper\Lib\File\FileWriter;
 
-class DotGitIgnore
+class DotGitIgnore extends TextClass
 {
     protected string $fileName = '.gitignore';
 
