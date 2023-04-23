@@ -10,5 +10,3 @@ vendor/
 .phpunit*
 *.lock
 *.cache
-.php-cs-fixer.php
-phpstan.neon
