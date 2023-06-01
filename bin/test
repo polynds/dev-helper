@@ -3,6 +3,7 @@
 /**
  * happy coding!!!
  */
+
 namespace DevHelper;
 
 use DevHelper\Lib\File\FileWriter;
@@ -19,17 +20,17 @@ use DevHelper\Lib\UMLParser\PrettyPrinter;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
-! defined('SRC_PATH') && define('SRC_PATH', BASE_PATH . '/src');
-! defined('PLUGIN_PATH') && define('PLUGIN_PATH', SRC_PATH . '/Plugin');
-! defined('BIN_PATH') && define('BIN_PATH', BASE_PATH . '/bin');
-! defined('CONFIG_PATH') && define('CONFIG_PATH', SRC_PATH . '/Config');
+!defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
+!defined('SRC_PATH') && define('SRC_PATH', BASE_PATH . '/src');
+!defined('PLUGIN_PATH') && define('PLUGIN_PATH', SRC_PATH . '/Plugin');
+!defined('BIN_PATH') && define('BIN_PATH', BASE_PATH . '/bin');
+!defined('CONFIG_PATH') && define('CONFIG_PATH', SRC_PATH . '/Config');
 
 $builder = new BuilderFactory();
 $uml = $builder->uml('leitu')
     ->setScale(0.7)
     ->setTitle('kuangjian test')
-    ->setTheme(UMLTheme::AWS_ORANGE)
+    ->setTheme(UMLTheme::with(UMLTheme::AWS_ORANGE))
     ->addStmt(
         (new Namespace_('DhHelper\\Name1'))->addStmt(
             (new Class_('Foo1'))->addStmt(
@@ -47,8 +48,8 @@ $uml = $builder->uml('leitu')
             ->addStmt(
                 (new Interface_('Foo2Interface'))->addStmt(
                     (new Method('iFunc1'))->addParams(
-                    (new Param('foop1'))->setType('int')
-                )->setReturnType('string')
+                        (new Param('foop1'))->setType('int')
+                    )->setReturnType('string')
                 )
             )
             ->addStmt(
@@ -57,38 +58,38 @@ $uml = $builder->uml('leitu')
             ->addStmt(
                 (new Class_('Foo2'))->addImplement('FooInterface')->addStmt(
                     (new Property('param2'))
-                    ->setType('string')
-                    ->setDefault(2)
-                    ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
+                        ->setType('string')
+                        ->setDefault(2)
+                        ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
                 )
                     ->addStmt(
                         (new Method('func2'))->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
-                        ->addParams((new Param('param1')))
-                        ->addParams((new Param('param2')))
+                            ->addParams((new Param('param1')))
+                            ->addParams((new Param('param2')))
                     )
             )
     )
     ->addStmt(
         (new Namespace_('DhHelper\\Name2'))->addStmt(
             (new Class_('Foo3'))->addStmt(
+                (new Property('param3'))
+                    ->setType('string')
+                    ->setDefault(3)
+                    ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
+            )
+                ->addStmt(
+                    (new Method('func3'))->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
+                        ->addParams((new Param('param1'))->setType('int')->setDefault(1))
+                        ->addParams((new Param('param2'))->setType('int')->setDefault(2))
+                )
+        )
+    )->addStmt(
+        (new Class_('Foo4'))->addExtend('Foo3')->addImplement('Foo2Interface')->addStmt(
             (new Property('param3'))
                 ->setType('string')
                 ->setDefault(3)
                 ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
         )
-            ->addStmt(
-                (new Method('func3'))->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
-                    ->addParams((new Param('param1'))->setType('int')->setDefault(1))
-                    ->addParams((new Param('param2'))->setType('int')->setDefault(2))
-            )
-        )
-    )->addStmt(
-        (new Class_('Foo4'))->addExtend('Foo3')->addImplement('Foo2Interface')->addStmt(
-        (new Property('param3'))
-                ->setType('string')
-                ->setDefault(3)
-                ->setFlags(new Modifiers(Modifiers::MODIFIER_PUBLIC))
-    )
     );
 // var_dump($uml);
 $p = new PrettyPrinter($uml);

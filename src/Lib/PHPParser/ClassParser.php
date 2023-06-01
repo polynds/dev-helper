@@ -35,7 +35,7 @@ class ClassParser
         foreach ($stmts as $stmt) {
             if ($stmt instanceof Namespace_) {
                 $classes = $interfaces = [];
-                var_dump($stmt->name->toString());
+                log_info($stmt->name->toString());
                 $namespace = [
                     'name' => $stmt->name->toString(),
                 ];

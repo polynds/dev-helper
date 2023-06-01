@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\UMLParser\Builder;
 
 class UMLTheme
@@ -164,6 +165,11 @@ class UMLTheme
     public function __construct(string $value)
     {
         $this->value = $value;
+    }
+
+    public static function with(string $theme): UMLTheme
+    {
+        return new static($theme);
     }
 
     public function getValue(): string
