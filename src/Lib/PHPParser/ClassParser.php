@@ -30,14 +30,15 @@ class ClassParser
     }
 
     public function parseClassByStmts(array $stmts): array
-    {
+    {var_dump($stmts);
         $data = [];
         foreach ($stmts as $stmt) {
             if ($stmt instanceof Namespace_) {
                 $classes = $interfaces = [];
-                log_info($stmt->name->toString());
+//                dd($stmt->name->toString());
+                $namespaceName = $stmt->name->toString();
                 $namespace = [
-                    'name' => $stmt->name->toString(),
+                    'name' => $namespaceName,
                 ];
                 foreach ($stmt->stmts as $node) {
                     if ($node instanceof Class_) {
@@ -126,7 +127,7 @@ class ClassParser
                     continue;
                 }
 
-                $data[$stmt->name->toString()][] = [
+                $data[$namespaceName][] = [
                     'namespace' => $namespace,
                     'classes' => $classes,
                     'interfaces' => $interfaces,
