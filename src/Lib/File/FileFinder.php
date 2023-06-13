@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\File;
 
 use SplFileInfo;
@@ -22,7 +23,7 @@ class FileFinder
     {
         $files = [];
         if (is_file($path)) {
-            if (! file_exists($path)) {
+            if (!file_exists($path)) {
                 throw new PathNotFoundException($path);
             }
             $files[] = $path;
@@ -31,11 +32,23 @@ class FileFinder
             $finder->followLinks();
             /** @var SplFileInfo $fileInfo */
             foreach ($finder->files()->name('*.{' . $this->fileExtensions . '}')
-                ->ignoreDotFiles(true)
-                ->in($path) as $fileInfo) {
+                         ->ignoreDotFiles(true)
+                         ->in($path) as $fileInfo) {
                 $files[] = $fileInfo->getPathname();
             }
         }
         return $files;
+    }
+
+    public function tree(string $path): array
+    {
+        $finder = new Finder();
+        $finder->followLinks();
+        $files = $finder->path($path)->ignoreDotFiles(true)->directories()->files()->getIterator();
+        $result = [];
+        foreach ($files as $file) {
+            $result[] = $file->getPathname();
+        }
+        return $result;
     }
 }

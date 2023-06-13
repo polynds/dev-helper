@@ -7,18 +7,23 @@ declare(strict_types=1);
 
 namespace DevHelper\Plugin\GenerateDirTree;
 
+use DevHelper\Lib\File\FileFinder;
+
 class GenerateDirTree
 {
     protected string $path;
 
-    public function __construct(string $path = null)
+    public function __construct(string $path)
     {
         $this->path = $path;
     }
 
     public function generate()
     {
-        $this->showMD();
+        $finder = new FileFinder();
+        $files = $finder->tree($this->path);
+        var_dump($files);
+//        $this->showMD();
     }
 
 
