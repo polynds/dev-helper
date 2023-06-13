@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Plugin\GenerateDiagram;
 
 use DevHelper\Lib\File\FileFinder;
@@ -61,8 +62,7 @@ class GenerateDiagram
 
     public function output()
     {
-        $p = new PrettyPrinter($this->uml);
-        FileWriter::write($this->uml->getFileName(), $p->print());
+        FileWriter::write($this->uml->getFileName(), (new PrettyPrinter($this->uml))->print());
     }
 
     protected function traverse()
@@ -75,12 +75,12 @@ class GenerateDiagram
             }
 
             $namespace = (new Namespace_($data['namespace']['name']));
-            if (! empty($data['classes'])) {
+            if (!empty($data['classes'])) {
                 foreach ($data['classes'] as $class) {
                     $class_ = (new Class_($class['name']));
                     foreach ($class['constants'] as $constant) {
                         $class_->addStmt(
-                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int) $constant['flags'])))
+                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int)$constant['flags'])))
                         );
                     }
 
@@ -88,12 +88,12 @@ class GenerateDiagram
                         $class_->addStmt(
                             (new Property($property['name']))
                                 ->setType($property['type'])
-                                ->setFlags(new Modifiers((int) $property['flags']))
+                                ->setFlags(new Modifiers((int)$property['flags']))
                         );
                     }
 
                     foreach ($class['methods'] as $method) {
-                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int) $method['flags'])));
+                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int)$method['flags'])));
                         foreach ($method['params'] as $param) {
                             $method_->addParams((new Param($param['name']))->setType($param['type']));
                         }
@@ -103,17 +103,17 @@ class GenerateDiagram
                 }
             }
 
-            if (! empty($data['interfaces'])) {
+            if (!empty($data['interfaces'])) {
                 foreach ($data['interfaces'] as $interface) {
                     $interface_ = (new Interface_($interface['name']));
                     foreach ($interface['constants'] as $constant) {
                         $interface_->addStmt(
-                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int) $constant['flags'])))
+                            (new Constant($constant['name']))->setValue($constant['value'])->setFlags((new Modifiers((int)$constant['flags'])))
                         );
                     }
 
                     foreach ($interface['methods'] as $method) {
-                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int) $method['flags'])));
+                        $method_ = (new Method($method['name']))->setFlags((new Modifiers((int)$method['flags'])));
                         foreach ($method['params'] as $param) {
                             $method_->addParams((new Param($param['name']))->setType($param['type']));
                         }
@@ -126,7 +126,8 @@ class GenerateDiagram
         }
     }
 
-    protected function bindCall(){
+    protected function bindCall()
+    {
 
     }
 }
