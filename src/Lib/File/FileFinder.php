@@ -31,7 +31,8 @@ class FileFinder
             $finder = new Finder();
             $finder->followLinks();
             /** @var SplFileInfo $fileInfo */
-            foreach ($finder->files()->name('*.{' . $this->fileExtensions . '}')
+            foreach ($finder->files()
+                         ->name('*.{' . $this->fileExtensions . '}')
                          ->ignoreDotFiles(true)
                          ->in($path) as $fileInfo) {
                 $files[] = $fileInfo->getPathname();
@@ -44,10 +45,11 @@ class FileFinder
     {
         $finder = new Finder();
         $finder->followLinks();
-        $files = $finder->path($path)->ignoreDotFiles(true)->directories()->files()->getIterator();
+        $files = $finder->in($path)->ignoreDotFiles(true)->getIterator();
         $result = [];
-        foreach ($files as $file) {
-            $result[] = $file->getPathname();
+        /** @var SplFileInfo $fileInfo */
+        foreach ($files as $fileInfo) {
+            $result[] = $fileInfo->getPathname();
         }
         return $result;
     }
