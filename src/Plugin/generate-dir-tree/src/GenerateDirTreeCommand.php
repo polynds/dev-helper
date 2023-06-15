@@ -16,7 +16,7 @@ class GenerateDirTreeCommand extends AbstractCommand
     public function handle()
     {
         $this->line('欢迎使用自动生成目录树形图工具！');
-        $path = './src';
+        $path = './src/Lib';
 //        $path = $this->askAndValidate('请输入操作目录:', static function ($value) {
 //            if (!$value) {
 //                throw new \InvalidArgumentException(

@@ -49,7 +49,13 @@ class FileFinder
         $result = [];
         /** @var SplFileInfo $fileInfo */
         foreach ($files as $fileInfo) {
-            $result[] = $fileInfo->getPathname();
+            $pathArr = explode('/', $fileInfo->getPathname());
+            array_shift($pathArr);
+            $last = array_pop($pathArr);
+            foreach (array_reverse($pathArr) as $pathName) {
+                $last = [$pathName => $last];
+            }
+            $result = array_merge_recursive($result, $last);
         }
         return $result;
     }

@@ -22,8 +22,12 @@ class GenerateDirTree
     {
         $finder = new FileFinder();
         $files = $finder->tree($this->path);
-        var_dump($files);
-//        $this->showMD();
+//        var_dump($files);
+        $str = '';
+        foreach ($files as $dir => $file) {
+            $str .= '├── ' . $dir . PHP_EOL;
+        }
+        echo $str;
     }
 
 
