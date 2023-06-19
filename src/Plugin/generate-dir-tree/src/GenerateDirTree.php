@@ -22,15 +22,29 @@ class GenerateDirTree
     {
         $finder = new FileFinder();
         $files = $finder->tree($this->path);
-//        var_dump($files);
-        $str = '';
+        var_dump($files);
+        $stack = [];
         foreach ($files as $dir => $file) {
-            $str .= '├── ' . $dir . PHP_EOL;
+            $result[] = '├── ' . $dir . PHP_EOL;
+            if(is_array($file)){
+                $stack[] = $file;
+            }
+            break;
         }
-        echo $str;
+        $result = [];
+        while (!empty($stack)){
+            $dir = array_pop($stack);
+            $result[] = '├── ' . $dir . PHP_EOL;
+            foreach ($dir as $file){
+                $stack[] = $file;
+            }
+        }
+        echo implode('', $result);
     }
 
+protected function show(){
 
+}
     public function showMD()
     {
         echo <<<'md'
