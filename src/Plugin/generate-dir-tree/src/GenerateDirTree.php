@@ -21,30 +21,34 @@ class GenerateDirTree
     public function generate()
     {
         $finder = new FileFinder();
-        $files = $finder->tree($this->path);
-        var_dump($files);
-        $stack = [];
-        foreach ($files as $dir => $file) {
-            $result[] = '├── ' . $dir . PHP_EOL;
-            if(is_array($file)){
-                $stack[] = $file;
-            }
-            break;
-        }
-        $result = [];
-        while (!empty($stack)){
-            $dir = array_pop($stack);
-            $result[] = '├── ' . $dir . PHP_EOL;
-            foreach ($dir as $file){
-                $stack[] = $file;
-            }
-        }
-        echo implode('', $result);
+        $files = $finder->tree2($this->path);
+        echo var_export($files, true);
+//        $result = $this->show($files);
+//        echo implode('', $result);
     }
 
-protected function show(){
+    protected function show(array $files): array
+    {
+        $result = [];
+        foreach ($files as $dir => $items) {
+            if (is_numeric($dir)) {
+                if (is_array($items)) {
+                    foreach ($items as $file) {
+                        $result[] = '├── ' . $file . PHP_EOL;
+                    }
+                } else {
+                    var_dump($items);
+                }
+            } else {
+                $result[] = '├── ' . $dir . PHP_EOL;
+                if (is_array($items)) {
+                    $result = array_merge_recursive($result, $this->show($items));
+                }
+            }
+        }
+        return $result;
+    }
 
-}
     public function showMD()
     {
         echo <<<'md'
