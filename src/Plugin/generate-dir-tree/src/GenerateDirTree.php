@@ -22,32 +22,31 @@ class GenerateDirTree
     {
         $finder = new FileFinder();
         $files = $finder->tree2($this->path);
-        echo var_export($files, true);
-//        $result = $this->show($files);
-//        echo implode('', $result);
+        echo var_export($files, true) . PHP_EOL;
+        $result = $this->show($files);
+        echo implode('', $result);
     }
 
-    protected function show(array $files): array
+    protected function show(array $files, int $depth = 0): array
     {
+        if (empty($files)) {
+            return $files;
+        }
         $result = [];
+        $flags = str_repeat("│  ", max($depth, 0));
         foreach ($files as $dir => $items) {
             if (is_numeric($dir)) {
-                if (is_array($items)) {
-                    foreach ($items as $file) {
-                        $result[] = '├── ' . $file . PHP_EOL;
-                    }
-                } else {
-                    var_dump($items);
-                }
+                $result[] = $flags . '├── ' . $items . PHP_EOL;
             } else {
-                $result[] = '├── ' . $dir . PHP_EOL;
                 if (is_array($items)) {
-                    $result = array_merge_recursive($result, $this->show($items));
+                    $result[] = $flags . '├── ' . $dir . PHP_EOL;
+                    $result = array_merge_recursive($result, $this->show($items, ++$depth));
                 }
             }
         }
         return $result;
     }
+
 
     public function showMD()
     {

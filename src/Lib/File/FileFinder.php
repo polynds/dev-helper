@@ -70,7 +70,6 @@ class FileFinder
         foreach ($files as $fileInfo) {
             $result = array_merge_recursive($result, $this->parsePath($fileInfo));
         }
-        natsort($result);
         return $result;
     }
 
@@ -86,7 +85,7 @@ class FileFinder
             if (empty($fileInfo->getRelativePath())) {
                 $file = [$fileInfo->getFilename()];
             } else {
-                $file = [$fileInfo->getRelativePath() => $fileInfo->getFilename()];
+                $file = [$fileInfo->getRelativePath() => [$fileInfo->getFilename()]];
             }
             $result = array_merge_recursive($result, $file);
         }
