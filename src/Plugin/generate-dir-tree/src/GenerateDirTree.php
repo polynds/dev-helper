@@ -24,6 +24,7 @@ class GenerateDirTree
         $files = $finder->tree2($this->path);
         echo var_export($files, true) . PHP_EOL;
         $result = $this->show($files);
+        echo var_export($files, true) . PHP_EOL;
         echo implode('', $result);
     }
 
