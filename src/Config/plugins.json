@@ -6,5 +6,9 @@
     {
         "name": "generateDirTree",
         "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand"
+    },
+    {
+        "name": "genDoc",
+        "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand"
     }
 ]

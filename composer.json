@@ -20,7 +20,8 @@
         "ext-json": "*",
         "ext-pcntl": "*",
         "devhelper-plugin/generate-diagram": "dev-main",
-        "devhelper-plugin/generate-dir-tree": "dev-main"
+        "devhelper-plugin/generate-dir-tree": "dev-main",
+        "devhelper-plugin/gen-doc": "dev-main"
     },
     "require-dev": {
         "phpstan/phpstan": "1.8.2",

@@ -4,13 +4,13 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
-use DevHelper\Lib\Console\Command\CreatePlugin\Composer\TextClass;
 use DevHelper\Lib\Exception\FileNotWritableException;
 use DevHelper\Lib\File\FileWriter;
 
-class DotGitIgnore extends TextClass
+class DotGitIgnore
 {
     protected string $fileName = '.gitignore';
 
@@ -33,7 +33,7 @@ EOF;
 
     public function write(string $path)
     {
-        if (! is_dir($path) || ! is_writable($path)) {
+        if (!is_dir($path) || !is_writable($path)) {
             throw new FileNotWritableException();
         }
         FileWriter::write($path . DIRECTORY_SEPARATOR . $this->fileName, $this->content);
