@@ -14,7 +14,7 @@ class Config
 
     public function __construct()
     {
-        $this->readconfig();
+        $this->readConfig();
     }
 
     public function get(string $key)
@@ -29,7 +29,7 @@ class Config
         return null;
     }
 
-    protected function readconfig()
+    protected function readConfig()
     {
         $this->configs = require $this->configPath;
     }
