@@ -8,6 +8,26 @@ class GenDocCommand extends AbstractCommand
     protected string $name = 'genDoc';
     public function handle()
     {
+        $this->line('欢迎使用自动化文档生成工具！');
+        //        $path = BASE_PATH . '/src/Lib/';
+        $path = $this->askAndValidate('请输入操作目录:', static function ($value) {
+            if (!$value) {
+                throw new \InvalidArgumentException(
+                    '输入错误'
+                );
+            }
+            if (!is_dir($value)) {
+                throw new \InvalidArgumentException(
+                    '不是一个正确的目录'
+                );
+            }
+            if (!is_writeable($value)) {
+                throw new \InvalidArgumentException(
+                    '不是一个可操作的目录'
+                );
+            }
+            return $value;
+        }, 3);
     }
     protected function configure()
     {
