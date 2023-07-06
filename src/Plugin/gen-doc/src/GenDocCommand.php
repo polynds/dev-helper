@@ -11,7 +11,7 @@ class GenDocCommand extends AbstractCommand
     public function handle()
     {
         $this->line('欢迎使用自动化文档生成工具！');
-        //        $path = BASE_PATH . '/src/Lib/';
+        $path = BASE_PATH . '/src/Lib/';
         $path = $this->askAndValidate('请输入操作目录:', static function ($value) {
             if (!$value) {
                 throw new \InvalidArgumentException(
