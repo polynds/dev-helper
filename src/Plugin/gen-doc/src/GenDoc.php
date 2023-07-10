@@ -5,19 +5,22 @@ namespace DevHelper\Plugin\GenDoc;
 class GenDoc
 {
 
+    protected string $path;
+
     /**
      * @param false|mixed|string|null $path
      */
     public function __construct($path)
     {
+        $this->path = $path;
     }
 
     public function build()
     {
-
+        $this->scan($this->path);
     }
 
-    public function scan(string $path)
+    protected function scan(string $path)
     {
         $files = $this->getFilesInPath($path);
 
