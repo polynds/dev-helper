@@ -2,6 +2,9 @@
 
 namespace DevHelper\Plugin\GenDoc;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
 class GenDoc
 {
 
@@ -23,7 +26,7 @@ class GenDoc
     protected function scan(string $path)
     {
         $files = $this->getFilesInPath($path);
-
+var_dump($files);
         foreach ($files as $file) {
             $docComments = $this->getDocCommentsFromFile($file);
 
@@ -41,10 +44,10 @@ class GenDoc
         $files = [];
 
         // 使用递归扫描指定路径下的所有文件
-        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $file) {
-            if ($file->isFile()) {
+            if ($file->isFile() && $file->getExtension() === 'php') {
                 $files[] = $file->getPathname();
             }
         }

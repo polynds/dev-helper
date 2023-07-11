@@ -32,7 +32,7 @@ class GenDocCommand extends AbstractCommand
         }, 3);
         $this->line('开始生成，请稍等...');
         (new GenDoc($path))->build();
-        $this->line('操作成功！UML文件已存放至根目录！');
+        $this->line('操作成功！文件已存放至根目录！');
     }
 
     protected function configure()
