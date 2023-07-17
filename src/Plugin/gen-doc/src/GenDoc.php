@@ -26,7 +26,7 @@ class GenDoc
     protected function scan(string $path)
     {
         $files = $this->getFilesInPath($path);
-var_dump($files);
+        var_dump($files);
         foreach ($files as $file) {
             $docComments = $this->getDocCommentsFromFile($file);
 
@@ -48,6 +48,10 @@ var_dump($files);
 
         foreach ($iterator as $file) {
             if ($file->isFile() && $file->getExtension() === 'php') {
+                // 过滤/vendor
+                if (str_contains($file->getPathname(), './vendor')) {
+                    continue;
+                }
                 $files[] = $file->getPathname();
             }
         }
