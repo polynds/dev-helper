@@ -87,4 +87,12 @@ class GenDoc
         // ...
     }
 
+
+    // 美化输出
+    private function buttyCode(string $code): string
+    {
+        return $code;
+    }
+
+
 }
