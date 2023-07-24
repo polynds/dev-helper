@@ -27,6 +27,7 @@ class GenDoc
     {
         $files = $this->getFilesInPath($path);
         var_dump($files);
+        $docs = [];
         foreach ($files as $file) {
             $docComments = $this->getDocCommentsFromFile($file);
 
@@ -34,7 +35,7 @@ class GenDoc
                 $docCommentContent = $this->parseDocComment($docComment);
 
                 // 根据注释内容补充代码逻辑
-                $this->addCodeBasedOnDocComment($docCommentContent);
+                $docs[] = $this->addCodeBasedOnDocComment($docCommentContent);
             }
         }
     }
@@ -81,10 +82,12 @@ class GenDoc
         return $matches[1];
     }
 
-    private function addCodeBasedOnDocComment(array $docCommentContent)
+    private function addCodeBasedOnDocComment(array $docCommentContent): array
     {
         // 根据注释内容补充代码逻辑
         // ...
+
+        return [];
     }
 
 
