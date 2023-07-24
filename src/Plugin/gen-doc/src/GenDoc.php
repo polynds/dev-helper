@@ -2,6 +2,7 @@
 
 namespace DevHelper\Plugin\GenDoc;
 
+use DevHelper\Lib\PHPParser\Reflector;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -71,6 +72,17 @@ class GenDoc
             }
         }
 
+        return $docComments;
+    }
+
+    private function getAttributesfromfile(string $file): array
+    {
+        $docComments = [];
+        $className = $file;
+        $reflector = new Reflector($className);
+        foreach ($reflector->getAttributes() as $attribute) {
+            $docComments[] = $attribute->getDocComment();
+        }
         return $docComments;
     }
 
