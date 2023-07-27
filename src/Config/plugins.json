@@ -10,5 +10,9 @@
     {
         "name": "genDoc",
         "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand"
+    },
+    {
+        "name": "keccak256",
+        "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command"
     }
 ]
