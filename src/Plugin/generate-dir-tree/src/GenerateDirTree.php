@@ -22,9 +22,9 @@ class GenerateDirTree
     {
         $finder = new FileFinder();
         $files = $finder->tree2($this->path);
-        //        echo var_export($files, true) . PHP_EOL;
+        echo var_export($files, true) . PHP_EOL;
         $result = $this->show($files);
-        //        echo var_export($files, true) . PHP_EOL;
+        echo var_export($files, true) . PHP_EOL;
         echo implode('', $result);
     }
 
@@ -34,7 +34,6 @@ class GenerateDirTree
             return $files;
         }
         $result = [];
-        //        $flags = str_repeat("│  ", max($depth, 0));
         $flags = str_repeat("  ", max($depth, 0));
         $index = 0;
         $count = count($files);
