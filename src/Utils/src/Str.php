@@ -43,4 +43,9 @@ class Str
     {
         return ucfirst(self::camel($value));
     }
+
+    public static function filterNewline(string $string): string
+    {
+        return str_replace(["\r\n", "\r", "\n"], '', $string);
+    }
 }
