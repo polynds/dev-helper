@@ -49,6 +49,6 @@
         "cs-fix": "php-cs-fixer fix $1"
     },
     "bin": [
-        "bin/dh"
+        "dh"
     ]
 }

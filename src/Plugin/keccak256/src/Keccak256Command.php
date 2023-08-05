@@ -8,7 +8,7 @@ class Keccak256Command extends AbstractCommand
 {
     protected string $name = 'keccak256';
 
-    public function handle()
+    public function handle(): void
     {
         $str = $this->askAndValidate('请输入带加密字符串:', static function ($value) {
             if (!$value) {
@@ -19,7 +19,8 @@ class Keccak256Command extends AbstractCommand
 
             return $value;
         }, 3);
-        var_dump(Keccak256::hash($str, 256));
+        $hash = Keccak256::hash($str, 256);
+        $this->line('hash:' . $hash);
     }
 
     protected function configure()
