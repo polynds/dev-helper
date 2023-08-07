@@ -6,8 +6,8 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Console;
 
-use DevHelper\Utils\Str;
 use InvalidArgumentException;
+use Str;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

@@ -32,10 +32,10 @@
     "autoload": {
         "psr-4": {
             "DevHelper\\Lib\\": "src/Lib",
-            "DevHelper\\Utils\\": "src/Utils/src"
+            "DevHelper\\Utils\\": "src/Utils"
         },
         "files": [
-            "src/Utils/src/Functions.php"
+            "src/Utils/Functions.php"
         ]
     },
     "repositories": {

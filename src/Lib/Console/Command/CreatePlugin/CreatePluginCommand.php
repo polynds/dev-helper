@@ -8,7 +8,7 @@ namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use Composer\Pcre\Preg;
 use DevHelper\Lib\Console\AbstractCommand;
-use DevHelper\Utils\Str;
+use Str;
 
 class CreatePluginCommand extends AbstractCommand
 {
