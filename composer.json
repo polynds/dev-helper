@@ -1,55 +1,55 @@
 {
-    "name": "polynds/dev-helper",
-    "type": "library",
-    "description": "A PHP development assistant",
-    "keywords": [
-        "php"
-    ],
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "kuangjian",
-            "email": "2910508410@qq.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.4",
-        "nikic/php-parser": "^4.1",
-        "symfony/console": "^5.4.3",
-        "symfony/finder": "^5.4.3",
-        "ext-json": "*",
-        "ext-pcntl": "*",
-        "kornrunner/keccak": "^1.1",
-        "devhelper-plugin/generate-diagram": "dev-main",
-        "devhelper-plugin/generate-dir-tree": "dev-main",
-        "devhelper-plugin/gen-doc": "dev-main",
-        "devhelper-plugin/keccak256": "dev-main"
+  "name": "polynds/dev-helper",
+  "type": "library",
+  "description": "A PHP development assistant",
+  "keywords": [
+    "php"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "kuangjian",
+      "email": "2910508410@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "nikic/php-parser": "^4.1",
+    "symfony/console": "^5.4.3",
+    "symfony/finder": "^5.4.3",
+    "ext-json": "*",
+    "ext-pcntl": "*",
+    "kornrunner/keccak": "^1.1",
+    "devhelper-plugin/generate-diagram": "dev-main",
+    "devhelper-plugin/generate-dir-tree": "dev-main",
+    "devhelper-plugin/gen-doc": "dev-main",
+    "devhelper-plugin/keccak256": "dev-main"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "1.8.2",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpunit/phpunit": "^9.5.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "DevHelper\\Lib\\": "src/Lib",
+      "DevHelper\\Utils\\": "src/Utils"
     },
-    "require-dev": {
-        "phpstan/phpstan": "1.8.2",
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "phpunit/phpunit": "^9.5.10"
-    },
-    "autoload": {
-        "psr-4": {
-            "DevHelper\\Lib\\": "src/Lib",
-            "DevHelper\\Utils\\": "src/Utils"
-        },
-        "files": [
-            "src/Utils/Functions.php"
-        ]
-    },
-    "repositories": {
-        "devhelper-plugin": {
-            "type": "path",
-            "url": "./src/Plugin/*"
-        }
-    },
-    "scripts": {
-        "analyse": "phpstan analyse --memory-limit 1000M -c phpstan.neon",
-        "cs-fix": "php-cs-fixer fix $1"
-    },
-    "bin": [
-        "dh"
+    "files": [
+      "src/Utils/Functions.php"
     ]
+  },
+  "repositories": {
+    "devhelper-plugin": {
+      "type": "path",
+      "url": "./src/Plugin/*"
+    }
+  },
+  "scripts": {
+    "analyse": "phpstan analyse --memory-limit 1000M -c phpstan.neon",
+    "cs-fix": "php-cs-fixer fix $1"
+  },
+  "bin": [
+    "dh"
+  ]
 }
