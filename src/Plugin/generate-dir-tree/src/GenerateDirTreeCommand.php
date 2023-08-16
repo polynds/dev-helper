@@ -13,7 +13,7 @@ class GenerateDirTreeCommand extends AbstractCommand
 {
     protected string $name = 'generateDirTree';
 
-    public function handle()
+    public function handle(): void
     {
         $this->line('欢迎使用自动生成目录树形图工具！');
         //        $path = BASE_PATH . '/src/Lib/';
@@ -39,7 +39,7 @@ class GenerateDirTreeCommand extends AbstractCommand
         (new GenerateDirTree($path))->generate();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('生成目录树结构，输出美观的文本');
     }

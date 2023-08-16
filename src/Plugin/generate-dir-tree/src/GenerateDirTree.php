@@ -18,7 +18,7 @@ class GenerateDirTree
         $this->path = $path;
     }
 
-    public function generate()
+    public function generate(): void
     {
         $finder = new FileFinder();
         $files = $finder->tree2($this->path);
