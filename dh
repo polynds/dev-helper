@@ -8,7 +8,7 @@ use DevHelper\Lib\Console\Application;
 
 require_once './vendor/autoload.php';
 
-! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__));
+! defined('BASE_PATH') && define('BASE_PATH', __DIR__);
 ! defined('SRC_PATH') && define('SRC_PATH', BASE_PATH . '/src');
 ! defined('PLUGIN_PATH') && define('PLUGIN_PATH', SRC_PATH . '/Plugin');
 ! defined('LIB_PATH') && define('LIB_PATH', SRC_PATH . '/Lib');
