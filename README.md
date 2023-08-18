@@ -13,7 +13,7 @@ cd dev-helper
 composer install
 
 # 启动命令行
-php vendor/dev-helper/bin start
+php dh
 ```
 
 ##### 贡献插件
