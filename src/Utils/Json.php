@@ -1,5 +1,7 @@
 <?php
 
+namespace DevHelper\Utils;
+
 class Json
 {
     public static function jsonEncoder($data): string

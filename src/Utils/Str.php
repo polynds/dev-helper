@@ -4,6 +4,11 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
+namespace DevHelper\Utils;
+
+use InvalidArgumentException;
+
 class Str
 {
     public static function convert2utf8(string $value)

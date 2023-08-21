@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35a20febc4b058538652814fcb45ffe1",
+    "content-hash": "46c48e9805babdbaf2969ddece6d359f",
     "packages": [
+        {
+            "name": "devhelper-plugin/data-visualizer",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./src/Plugin/data-visualizer",
+                "reference": "d7999c85e3cfcfef94efe2ffc27549c6bbc9e187"
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "extra": {
+                "devHelper": {
+                    "config": "DevHelper\\Plugin\\DataVisualizer\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DevHelper\\Plugin\\DataVisualizer\\": "src/"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "kuangjian",
+                    "email": "2910508410@qq.com"
+                }
+            ],
+            "description": "数据可视化展示",
+            "keywords": [
+                "php"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "devhelper-plugin/gen-doc",
             "version": "dev-main",
@@ -4112,7 +4151,8 @@
         "devhelper-plugin/generate-diagram": 20,
         "devhelper-plugin/generate-dir-tree": 20,
         "devhelper-plugin/gen-doc": 20,
-        "devhelper-plugin/keccak256": 20
+        "devhelper-plugin/keccak256": 20,
+        "devhelper-plugin/data-visualizer": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

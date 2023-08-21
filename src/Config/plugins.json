@@ -14,5 +14,9 @@
     {
         "name": "keccak256",
         "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command"
+    },
+    {
+        "name": "dataVisualizer",
+        "command": "DevHelper\\Plugin\\DataVisualizer\\DataVisualizerCommand"
     }
 ]

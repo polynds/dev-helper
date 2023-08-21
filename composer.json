@@ -23,7 +23,8 @@
     "devhelper-plugin/generate-diagram": "dev-main",
     "devhelper-plugin/generate-dir-tree": "dev-main",
     "devhelper-plugin/gen-doc": "dev-main",
-    "devhelper-plugin/keccak256": "dev-main"
+    "devhelper-plugin/keccak256": "dev-main",
+    "devhelper-plugin/data-visualizer": "dev-main"
   },
   "require-dev": {
     "phpstan/phpstan": "1.8.2",
