@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 namespace DevHelper\Lib\Console;
 
-use Str;
+use DevHelper\Utils\Str;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\HelperSet;
