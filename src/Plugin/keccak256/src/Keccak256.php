@@ -8,6 +8,65 @@ final class Keccak256
     private static $keccakf_rotc = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 2, 14, 27, 41, 56, 8, 25, 43, 62, 18, 39, 61, 20, 44];
     private static $keccakf_piln = [10, 7, 11, 17, 18, 3, 5, 16, 8, 21, 24, 4, 15, 23, 19, 13, 12, 2, 20, 14, 22, 9, 6, 1];
 
+    public static function hash($input, $mdlen, $raw_output = false)
+    {
+        if (!in_array($mdlen, [224, 256], true)) {
+            throw new \Exception('Unsupported Keccak256 Hash output size.');
+        }
+
+        return self::keccak($input, $mdlen, $mdlen, 0x01, $raw_output);
+    }
+
+    private static function keccak($input, $capacity, $outputlength, $suffix, $raw_output)
+    {
+        return self::keccak32($input, $capacity, $outputlength, $suffix, $raw_output);
+    }
+
+    private static function keccak32($input, $capacity, $outputlength, $suffix, $raw_output)
+    {
+        $capacity /= 8;
+        $inlen = \mb_strlen($input, '8bit');
+        $rsiz = 200 - 2 * $capacity;
+        $rsizw = $rsiz / 8;
+        $st = [];
+        for ($i = 0; $i < 25; $i++) {
+            $st[] = [0, 0, 0, 0];
+        }
+        for ($in_t = 0; $inlen >= $rsiz; $inlen -= $rsiz, $in_t += $rsiz) {
+            for ($i = 0; $i < $rsizw; $i++) {
+                $t = unpack('v*', \mb_substr($input, $i * 8 + $in_t, 8, '8bit'));
+                $st[$i] = [
+                    $st[$i][0] ^ $t[4],
+                    $st[$i][1] ^ $t[3],
+                    $st[$i][2] ^ $t[2],
+                    $st[$i][3] ^ $t[1],
+                ];
+            }
+            self::keccakf32($st, self::KECCAK_ROUNDS);
+        }
+        $temp = \mb_substr($input, $in_t, $inlen, '8bit');
+        $temp = str_pad($temp, $rsiz, "\x0", STR_PAD_RIGHT);
+        $temp[$inlen] = chr($suffix);
+        $temp[$rsiz - 1] = chr(hexdec($temp[$rsiz - 1]) | 0x80);
+        for ($i = 0; $i < $rsizw; $i++) {
+            $t = unpack('v*', \mb_substr($temp, $i * 8, 8, '8bit'));
+            $st[$i] = [
+                $st[$i][0] ^ $t[4],
+                $st[$i][1] ^ $t[3],
+                $st[$i][2] ^ $t[2],
+                $st[$i][3] ^ $t[1],
+            ];
+        }
+        self::keccakf32($st, self::KECCAK_ROUNDS);
+        $out = '';
+        for ($i = 0; $i < 25; $i++) {
+            $out .= $t = pack('v*', $st[$i][3], $st[$i][2], $st[$i][1], $st[$i][0]);
+        }
+        $r = \mb_substr($out, 0, $outputlength / 8, '8bit');
+
+        return $raw_output ? $r : bin2hex($r);
+    }
+
     /**
      * @author Bruno Bierbaumer https://github.com/0xbb
      */
@@ -90,65 +149,6 @@ final class Keccak256
                 $st[0][3] ^ $keccakf_rndc[$round][3],
             ];
         }
-    }
-
-    private static function keccak32($input, $capacity, $outputlength, $suffix, $raw_output)
-    {
-        $capacity /= 8;
-        $inlen = \mb_strlen($input, '8bit');
-        $rsiz = 200 - 2 * $capacity;
-        $rsizw = $rsiz / 8;
-        $st = [];
-        for ($i = 0; $i < 25; $i++) {
-            $st[] = [0, 0, 0, 0];
-        }
-        for ($in_t = 0; $inlen >= $rsiz; $inlen -= $rsiz, $in_t += $rsiz) {
-            for ($i = 0; $i < $rsizw; $i++) {
-                $t = unpack('v*', \mb_substr($input, $i * 8 + $in_t, 8, '8bit'));
-                $st[$i] = [
-                    $st[$i][0] ^ $t[4],
-                    $st[$i][1] ^ $t[3],
-                    $st[$i][2] ^ $t[2],
-                    $st[$i][3] ^ $t[1],
-                ];
-            }
-            self::keccakf32($st, self::KECCAK_ROUNDS);
-        }
-        $temp = \mb_substr($input, $in_t, $inlen, '8bit');
-        $temp = str_pad($temp, $rsiz, "\x0", STR_PAD_RIGHT);
-        $temp[$inlen] = chr($suffix);
-        $temp[$rsiz - 1] = chr(hexdec($temp[$rsiz - 1]) | 0x80);
-        for ($i = 0; $i < $rsizw; $i++) {
-            $t = unpack('v*', \mb_substr($temp, $i * 8, 8, '8bit'));
-            $st[$i] = [
-                $st[$i][0] ^ $t[4],
-                $st[$i][1] ^ $t[3],
-                $st[$i][2] ^ $t[2],
-                $st[$i][3] ^ $t[1],
-            ];
-        }
-        self::keccakf32($st, self::KECCAK_ROUNDS);
-        $out = '';
-        for ($i = 0; $i < 25; $i++) {
-            $out .= $t = pack('v*', $st[$i][3], $st[$i][2], $st[$i][1], $st[$i][0]);
-        }
-        $r = \mb_substr($out, 0, $outputlength / 8, '8bit');
-
-        return $raw_output ? $r : bin2hex($r);
-    }
-
-    private static function keccak($input, $capacity, $outputlength, $suffix, $raw_output)
-    {
-        return self::keccak32($input, $capacity, $outputlength, $suffix, $raw_output);
-    }
-
-    public static function hash($input, $mdlen, $raw_output = false)
-    {
-        if (!in_array($mdlen, [224, 256], true)) {
-            throw new \Exception('Unsupported Keccak256 Hash output size.');
-        }
-
-        return self::keccak($input, $mdlen, $mdlen, 0x01, $raw_output);
     }
 
     public static function shake($input, $security_level, $outlen, $raw_output = false)

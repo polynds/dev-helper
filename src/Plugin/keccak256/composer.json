@@ -1,28 +1,28 @@
 {
-    "name": "devhelper-plugin/keccak256",
-    "description": "keccak256",
-    "license": "Apache-2.0",
-    "keywords": [
-        "php"
-    ],
-    "require": {
-        "php": ">=7.4",
-        "kornrunner/keccak": "^1.1"
-    },
-    "authors": [
-        {
-            "name": "",
-            "email": ""
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "DevHelper\\Plugin\\Keccak256\\": "src/"
-        }
-    },
-    "extra": {
-        "devHelper": {
-            "config": "DevHelper\\Plugin\\Keccak256\\ConfigProvider"
-        }
+  "name": "devhelper-plugin/keccak256",
+  "description": "keccak256",
+  "license": "Apache-2.0",
+  "keywords": [
+    "php"
+  ],
+  "require": {
+    "php": ">=7.4",
+    "kornrunner/keccak": "^1.1"
+  },
+  "authors": [
+    {
+      "name": "",
+      "email": ""
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DevHelper\\Plugin\\Keccak256\\": "src/"
+    }
+  },
+  "extra": {
+    "devHelper": {
+      "config": "DevHelper\\Plugin\\Keccak256\\ConfigProvider"
+    }
+  }
 }

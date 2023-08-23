@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console;
 
 use DevHelper\Utils\Str;
@@ -41,7 +42,7 @@ abstract class AbstractCommand extends SymfonyCommand
             new QuestionHelper(),
         ]);
 
-        if (! $name && $this->name) {
+        if (!$name && $this->name) {
             $name = $this->name;
         }
 
@@ -131,9 +132,9 @@ abstract class AbstractCommand extends SymfonyCommand
      */
     public function choiceMultiple(
         string $question,
-        array $choices,
+        array  $choices,
         $default = null,
-        ?int $attempts = null
+        ?int   $attempts = null
     ): array {
         $question = new ChoiceQuestion($question, $choices, $default);
 
@@ -147,9 +148,9 @@ abstract class AbstractCommand extends SymfonyCommand
      */
     public function choice(
         string $question,
-        array $choices,
+        array  $choices,
         $default = null,
-        ?int $attempts = null
+        ?int   $attempts = null
     ): string {
         return $this->choiceMultiple($question, $choices, $default, $attempts)[0];
     }
@@ -161,7 +162,7 @@ abstract class AbstractCommand extends SymfonyCommand
     {
         $table = new Table($this->output);
 
-        $table->setHeaders((array) $headers)->setRows($rows)->setStyle($tableStyle);
+        $table->setHeaders((array)$headers)->setRows($rows)->setStyle($tableStyle);
 
         foreach ($columnStyles as $columnIndex => $columnStyle) {
             $table->setColumnStyle($columnIndex, $columnStyle);
@@ -235,7 +236,7 @@ abstract class AbstractCommand extends SymfonyCommand
      */
     public function warn($string, $verbosity = null)
     {
-        if (! $this->output->getFormatter()->hasStyle('warning')) {
+        if (!$this->output->getFormatter()->hasStyle('warning')) {
             $style = new OutputFormatterStyle('yellow');
             $this->output->getFormatter()->setStyle('warning', $style);
         }
@@ -280,7 +281,7 @@ abstract class AbstractCommand extends SymfonyCommand
     {
         if (isset($this->verbosityMap[$level])) {
             $level = $this->verbosityMap[$level];
-        } elseif (! is_int($level)) {
+        } elseif (!is_int($level)) {
             $level = $this->verbosity;
         }
         return $level;
@@ -326,7 +327,7 @@ abstract class AbstractCommand extends SymfonyCommand
     protected function configure()
     {
         parent::configure();
-        if (! isset($this->signature)) {
+        if (!isset($this->signature)) {
             $this->specifyParameters();
         }
     }

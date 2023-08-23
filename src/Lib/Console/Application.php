@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console;
 
 use DevHelper\Lib\Console\Command\CreatePlugin\CreatePluginCommand;
@@ -20,6 +21,13 @@ final class Application extends BaseApplication
         $this->registerCommand();
     }
 
+    protected function registerLibCommand()
+    {
+        $this->addCommands([
+            new CreatePluginCommand(),
+        ]);
+    }
+
     public function registerCommand()
     {
         $commands = [];
@@ -27,18 +35,11 @@ final class Application extends BaseApplication
         foreach ($plugins as $plugin) {
             $className = $plugin['command'];
             $file = Composer::getLoader()->findFile($className);
-            if (! $file) {
+            if (!$file) {
                 continue;
             }
             $commands[] = new $className();
         }
         $this->addCommands($commands);
-    }
-
-    protected function registerLibCommand()
-    {
-        $this->addCommands([
-            new CreatePluginCommand(),
-        ]);
     }
 }

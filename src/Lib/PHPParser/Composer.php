@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\PHPParser;
 
 use Composer\Autoload\ClassLoader;
@@ -18,10 +19,25 @@ class Composer
 
     public static function getLoader(): ClassLoader
     {
-        if (! self::$classLoader) {
+        if (!self::$classLoader) {
             self::$classLoader = self::findLoader();
         }
         return self::$classLoader;
+    }
+
+    private static function findLoader(): ClassLoader
+    {
+        $composerClass = '';
+        foreach (get_declared_classes() as $declaredClass) {
+            if (str_starts_with($declaredClass, 'ComposerAutoloaderInit') && method_exists($declaredClass, 'getLoader')) {
+                $composerClass = $declaredClass;
+                break;
+            }
+        }
+        if (!$composerClass) {
+            throw new \RuntimeException('Composer loader not found.');
+        }
+        return $composerClass::getLoader();
     }
 
     public static function setLoader(ClassLoader $classLoader): ClassLoader
@@ -38,20 +54,5 @@ class Composer
     public static function getVersions(): array
     {
         return self::$versions;
-    }
-
-    private static function findLoader(): ClassLoader
-    {
-        $composerClass = '';
-        foreach (get_declared_classes() as $declaredClass) {
-            if (str_starts_with($declaredClass, 'ComposerAutoloaderInit') && method_exists($declaredClass, 'getLoader')) {
-                $composerClass = $declaredClass;
-                break;
-            }
-        }
-        if (! $composerClass) {
-            throw new \RuntimeException('Composer loader not found.');
-        }
-        return $composerClass::getLoader();
     }
 }

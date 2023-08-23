@@ -7,12 +7,12 @@ use ReflectionClass;
 
 class Reflector
 {
-    const Stmt_Class = 'Stmt_Class';
-    const Stmt_ClassConst = 'Stmt_ClassConst';
-    const Stmt_ClassMethod = 'Stmt_ClassMethod';
-    const Stmt_Interface = 'Stmt_Interface';
-    const Stmt_Namespace = 'Stmt_Namespace';
-    const Stmt_Property = 'Stmt_Property';
+    public const Stmt_Class = 'Stmt_Class';
+    public const Stmt_ClassConst = 'Stmt_ClassConst';
+    public const Stmt_ClassMethod = 'Stmt_ClassMethod';
+    public const Stmt_Interface = 'Stmt_Interface';
+    public const Stmt_Namespace = 'Stmt_Namespace';
+    public const Stmt_Property = 'Stmt_Property';
 
 
     private string $class;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib;
 
 use Closure;
@@ -13,7 +14,7 @@ class PcntlHandler
 {
     public function __construct()
     {
-        if (! extension_loaded('pcntl')) {
+        if (!extension_loaded('pcntl')) {
             throw new ProcessException('Missing pcntl extension.');
         }
     }

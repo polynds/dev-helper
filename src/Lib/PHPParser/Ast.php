@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\PHPParser;
 
 use PhpParser\Node\Stmt\Class_;
@@ -33,11 +34,6 @@ class Ast
         $this->printer = new Standard();
     }
 
-    public function parse(string $code): ?array
-    {
-        return $this->astParser->parse($code);
-    }
-
     public function proxy(string $className)
     {
         $code = $this->getCodeByClassName($className);
@@ -52,6 +48,20 @@ class Ast
         }
         $modifiedStmts = $traverser->traverse($stmts);
         return $this->printer->prettyPrintFile($modifiedStmts);
+    }
+
+    private function getCodeByClassName(string $className): string
+    {
+        $file = Composer::getLoader()->findFile($className);
+        if (!$file) {
+            return '';
+        }
+        return file_get_contents($file);
+    }
+
+    public function parse(string $code): ?array
+    {
+        return $this->astParser->parse($code);
     }
 
     public function parseClassByStmts(array $stmts): string
@@ -69,14 +79,5 @@ class Ast
             }
         }
         return ($namespace && $className) ? $namespace . '\\' . $className : '';
-    }
-
-    private function getCodeByClassName(string $className): string
-    {
-        $file = Composer::getLoader()->findFile($className);
-        if (! $file) {
-            return '';
-        }
-        return file_get_contents($file);
     }
 }

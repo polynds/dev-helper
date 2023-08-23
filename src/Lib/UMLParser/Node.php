@@ -4,5 +4,4 @@ namespace DevHelper\Lib\UMLParser;
 
 interface Node
 {
-
 }

@@ -8,7 +8,6 @@ use RecursiveIteratorIterator;
 
 class GenDoc
 {
-
     protected string $path;
 
     /**

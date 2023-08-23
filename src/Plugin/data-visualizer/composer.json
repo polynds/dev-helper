@@ -1,27 +1,27 @@
 {
-    "name": "devhelper-plugin/data-visualizer",
-    "description": "数据可视化展示",
-    "license": "Apache-2.0",
-    "keywords": [
-        "php"
-    ],
-    "require": {
-        "php": ">=7.4"
-    },
-    "authors": [
-        {
-            "name": "kuangjian",
-            "email": "2910508410@qq.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "DevHelper\\Plugin\\DataVisualizer\\": "src/"
-        }
-    },
-    "extra": {
-        "devHelper": {
-            "config": "DevHelper\\Plugin\\DataVisualizer\\ConfigProvider"
-        }
+  "name": "devhelper-plugin/data-visualizer",
+  "description": "数据可视化展示",
+  "license": "Apache-2.0",
+  "keywords": [
+    "php"
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "authors": [
+    {
+      "name": "kuangjian",
+      "email": "2910508410@qq.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DevHelper\\Plugin\\DataVisualizer\\": "src/"
+    }
+  },
+  "extra": {
+    "devHelper": {
+      "config": "DevHelper\\Plugin\\DataVisualizer\\ConfigProvider"
+    }
+  }
 }

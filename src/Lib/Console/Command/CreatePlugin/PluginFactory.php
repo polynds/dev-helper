@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use DevHelper\Lib\Console\AbstractCommand;
@@ -41,9 +42,19 @@ class PluginFactory
         Dir::makeDir($this->getPluginRootPath());
     }
 
+    private function getPluginRootPath(): string
+    {
+        return $this->plugin->getPath() . DIRECTORY_SEPARATOR;
+    }
+
     protected function createSrc()
     {
         Dir::makeDir($this->getPluginSrcPath());
+    }
+
+    private function getPluginSrcPath(): string
+    {
+        return $this->getPluginRootPath() . 'src';
     }
 
     protected function createComposer()
@@ -124,15 +135,5 @@ class PluginFactory
             ];
             JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $plugins);
         }
-    }
-
-    private function getPluginRootPath(): string
-    {
-        return $this->plugin->getPath() . DIRECTORY_SEPARATOR;
-    }
-
-    private function getPluginSrcPath(): string
-    {
-        return $this->getPluginRootPath() . 'src';
     }
 }

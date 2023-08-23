@@ -1,27 +1,27 @@
 {
-    "name": "devhelper-plugin/generate-dir-tree",
-    "description": "生成目录树结构，输出美观的文本",
-    "license": "Apache-2.0",
-    "keywords": [
-        "php"
-    ],
-    "require": {
-        "php": ">=7.4"
-    },
-    "authors": [
-        {
-            "name": "kuangjian",
-            "email": "2910508410@qq.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "DevHelper\\Plugin\\GenerateDirTree\\": "src/"
-        }
-    },
-    "extra": {
-        "devHelper": {
-            "config": "DevHelper\\Plugin\\GenerateDiagram\\ConfigProvider"
-        }
+  "name": "devhelper-plugin/generate-dir-tree",
+  "description": "生成目录树结构，输出美观的文本",
+  "license": "Apache-2.0",
+  "keywords": [
+    "php"
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "authors": [
+    {
+      "name": "kuangjian",
+      "email": "2910508410@qq.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DevHelper\\Plugin\\GenerateDirTree\\": "src/"
+    }
+  },
+  "extra": {
+    "devHelper": {
+      "config": "DevHelper\\Plugin\\GenerateDiagram\\ConfigProvider"
+    }
+  }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\UMLParser\Builder;
 
 use DevHelper\Lib\UMLParser\Builder;
@@ -44,9 +45,9 @@ class Constant implements Builder
      */
     public function setValue($value): self
     {
-//        if (! in_array(gettype($value), ['bool', 'float', 'int', 'string'])) {
-//            throw new InvalidArgumentException('Constant value type must be bool|float|int|string.');
-//        }
+        //        if (! in_array(gettype($value), ['bool', 'float', 'int', 'string'])) {
+        //            throw new InvalidArgumentException('Constant value type must be bool|float|int|string.');
+        //        }
         $this->value = $value;
         return $this;
     }

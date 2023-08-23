@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\UMLParser\Builder;
 
 class Modifiers
@@ -38,36 +39,36 @@ class Modifiers
 
     public function isFinal(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_FINAL);
+        return (bool)($this->value & self::MODIFIER_FINAL);
     }
 
     public function isPublic(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_PUBLIC);
+        return (bool)($this->value & self::MODIFIER_PUBLIC);
     }
 
     public function isProtected(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_PROTECTED);
+        return (bool)($this->value & self::MODIFIER_PROTECTED);
     }
 
     public function isPrivate(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_PRIVATE);
+        return (bool)($this->value & self::MODIFIER_PRIVATE);
     }
 
     public function isStatic(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_STATIC);
+        return (bool)($this->value & self::MODIFIER_STATIC);
     }
 
     public function isAbstract(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_ABSTRACT);
+        return (bool)($this->value & self::MODIFIER_ABSTRACT);
     }
 
     public function isReadonly(): bool
     {
-        return (bool) ($this->value & self::MODIFIER_READONLY);
+        return (bool)($this->value & self::MODIFIER_READONLY);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\PHPParser;
 
 use PhpParser\Node\Stmt\Class_;
@@ -16,7 +17,7 @@ use PhpParser\ParserFactory;
 
 class ClassParser
 {
-    protected \PhpParser\Parser  $astParser;
+    protected \PhpParser\Parser $astParser;
 
     public function __construct()
     {
@@ -30,20 +31,22 @@ class ClassParser
     }
 
     public function parseClassByStmts(array $stmts): array
-    {var_dump($stmts);
+    {
+        var_dump($stmts);
         $data = [];
         foreach ($stmts as $stmt) {
             if ($stmt instanceof Namespace_) {
                 $classes = $interfaces = [];
-//                dd($stmt->name->toString());
+                //                dd($stmt->name->toString());
                 $namespaceName = $stmt->name->toString();
                 $namespace = [
                     'name' => $namespaceName,
                 ];
                 foreach ($stmt->stmts as $node) {
                     if ($node instanceof Class_) {
-                        if('DotGitIgnore' == $node->name->name){
-                            var_dump($stmt);die();
+                        if ('DotGitIgnore' == $node->name->name) {
+                            var_dump($stmt);
+                            die();
                         }
                         $constants = $propertes = $methods = [];
                         foreach ($node->stmts as $nodeStmts) {

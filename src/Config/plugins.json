@@ -1,22 +1,22 @@
 [
-    {
-        "name": "generateDiagram",
-        "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand"
-    },
-    {
-        "name": "generateDirTree",
-        "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand"
-    },
-    {
-        "name": "genDoc",
-        "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand"
-    },
-    {
-        "name": "keccak256",
-        "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command"
-    },
-    {
-        "name": "dataVisualizer",
-        "command": "DevHelper\\Plugin\\DataVisualizer\\DataVisualizerCommand"
-    }
+  {
+    "name": "generateDiagram",
+    "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand"
+  },
+  {
+    "name": "generateDirTree",
+    "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand"
+  },
+  {
+    "name": "genDoc",
+    "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand"
+  },
+  {
+    "name": "keccak256",
+    "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command"
+  },
+  {
+    "name": "dataVisualizer",
+    "command": "DevHelper\\Plugin\\DataVisualizer\\DataVisualizerCommand"
+  }
 ]

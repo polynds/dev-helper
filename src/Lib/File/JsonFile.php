@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\File;
 
 use Exception;
@@ -11,24 +12,6 @@ use InvalidArgumentException;
 
 class JsonFile
 {
-    public static function filePutContentsIfModified(string $path, string $content): int
-    {
-        $success = true;
-        $currentContent = @file_get_contents($path);
-        if ($currentContent === false || $currentContent !== $content) {
-            $success = file_put_contents($path, $content);
-        }
-        if ($success === false) {
-            $error = error_get_last();
-
-            throw new NotWriteFilesException(
-                $path,
-                $error !== null ? $error['message'] : 'unknown cause',
-            );
-        }
-        return $success;
-    }
-
     public static function write(string $path, array $content, int $options = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
     {
         if ($path === 'php://memory') {
@@ -55,21 +38,6 @@ class JsonFile
         return 0;
     }
 
-    public static function read(string $path)
-    {
-        try {
-            $json = file_get_contents($path);
-        } catch (Exception $e) {
-            throw new InvalidArgumentException('Could not read ' . $path . "\n\n" . $e->getMessage());
-        }
-
-        if ($json === false) {
-            throw new InvalidArgumentException('Could not read ' . $path);
-        }
-
-        return self::decode($json);
-    }
-
     public static function encode($data, int $options = 448)
     {
         $json = json_encode($data, $options);
@@ -78,20 +46,6 @@ class JsonFile
         }
 
         return $json;
-    }
-
-    public static function decode(?string $json)
-    {
-        if (is_null($json)) {
-            return null;
-        }
-
-        $data = json_decode($json, true);
-        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-            self::throwJsonError(json_last_error());
-        }
-
-        return $data;
     }
 
     private static function throwJsonError(int $code): void
@@ -114,5 +68,52 @@ class JsonFile
         }
 
         throw new \RuntimeException('JSON encoding failed: ' . $msg);
+    }
+
+    public static function filePutContentsIfModified(string $path, string $content): int
+    {
+        $success = true;
+        $currentContent = @file_get_contents($path);
+        if ($currentContent === false || $currentContent !== $content) {
+            $success = file_put_contents($path, $content);
+        }
+        if ($success === false) {
+            $error = error_get_last();
+
+            throw new NotWriteFilesException(
+                $path,
+                $error !== null ? $error['message'] : 'unknown cause',
+            );
+        }
+        return $success;
+    }
+
+    public static function read(string $path)
+    {
+        try {
+            $json = file_get_contents($path);
+        } catch (Exception $e) {
+            throw new InvalidArgumentException('Could not read ' . $path . "\n\n" . $e->getMessage());
+        }
+
+        if ($json === false) {
+            throw new InvalidArgumentException('Could not read ' . $path);
+        }
+
+        return self::decode($json);
+    }
+
+    public static function decode(?string $json)
+    {
+        if (is_null($json)) {
+            return null;
+        }
+
+        $data = json_decode($json, true);
+        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+            self::throwJsonError(json_last_error());
+        }
+
+        return $data;
     }
 }

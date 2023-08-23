@@ -3,7 +3,7 @@
 /**
  * happy coding!!!
  */
-if (! isset($argv[1],$argv[2])) {
+if (!isset($argv[1], $argv[2])) {
     echo '参数错误' . PHP_EOL;
     exit(1);
 }

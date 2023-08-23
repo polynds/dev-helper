@@ -1,27 +1,27 @@
 {
-    "name": "devhelper-plugin/gen-doc",
-    "description": "自动化文档生成",
-    "license": "Apache-2.0",
-    "keywords": [
-        "php"
-    ],
-    "require": {
-        "php": ">=7.4"
-    },
-    "authors": [
-        {
-            "name": "kuangjian",
-            "email": "2910508410@qq.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "DevHelper\\Plugin\\GenDoc\\": "src/"
-        }
-    },
-    "extra": {
-        "devHelper": {
-            "config": "DevHelper\\Plugin\\GenDoc\\ConfigProvider"
-        }
+  "name": "devhelper-plugin/gen-doc",
+  "description": "自动化文档生成",
+  "license": "Apache-2.0",
+  "keywords": [
+    "php"
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "authors": [
+    {
+      "name": "kuangjian",
+      "email": "2910508410@qq.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DevHelper\\Plugin\\GenDoc\\": "src/"
+    }
+  },
+  "extra": {
+    "devHelper": {
+      "config": "DevHelper\\Plugin\\GenDoc\\ConfigProvider"
+    }
+  }
 }

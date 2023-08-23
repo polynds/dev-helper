@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\UMLParser\Builder;
 
 use LogicException;
@@ -46,17 +47,17 @@ class Class_ extends Definition
 
     public function isAbstract(): bool
     {
-        return (bool) ($this->flags & Modifiers::MODIFIER_ABSTRACT);
+        return (bool)($this->flags & Modifiers::MODIFIER_ABSTRACT);
     }
 
     public function isFinal(): bool
     {
-        return (bool) ($this->flags & Modifiers::MODIFIER_FINAL);
+        return (bool)($this->flags & Modifiers::MODIFIER_FINAL);
     }
 
     public function isReadonly(): bool
     {
-        return (bool) ($this->flags & Modifiers::MODIFIER_READONLY);
+        return (bool)($this->flags & Modifiers::MODIFIER_READONLY);
     }
 
     public function isAnonymous(): bool
@@ -83,6 +84,12 @@ class Class_ extends Definition
     public function getFlags(): Modifiers
     {
         return $this->flags;
+    }
+
+    public function setFlags(Modifiers $modifiers): self
+    {
+        $this->flags = $modifiers;
+        return $this;
     }
 
     /**
@@ -120,12 +127,6 @@ class Class_ extends Definition
     public function getImplements(): array
     {
         return $this->implements;
-    }
-
-    public function setFlags(Modifiers $modifiers): self
-    {
-        $this->flags = $modifiers;
-        return $this;
     }
 
     public function addExtend(string $extends): self

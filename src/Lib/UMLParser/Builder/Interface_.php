@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\UMLParser\Builder;
 
 use LogicException;
@@ -27,7 +28,7 @@ class Interface_ extends Definition
     /**
      * @var Method[]
      */
-    protected array  $methods = [];
+    protected array $methods = [];
 
     public function __construct(string $name)
     {

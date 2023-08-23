@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 class ConfigProvider extends AbstractTemplate
@@ -22,6 +23,15 @@ class ConfigProvider extends AbstractTemplate
 
         return $this->replaceNameSpace($stub, $name)
             ->replaceCommandClass($stub, $commandClass);
+    }
+
+    protected function replaceCommandClass(string $stub, string $commandClass): string
+    {
+        return str_replace(
+            ['%COMMANDCLASS%'],
+            [$commandClass],
+            $stub
+        );
     }
 
     protected function replaceNameSpace(string &$stub, string $name): self
@@ -44,14 +54,5 @@ class ConfigProvider extends AbstractTemplate
         );
 
         return $this;
-    }
-
-    protected function replaceCommandClass(string $stub, string $commandClass): string
-    {
-        return str_replace(
-            ['%COMMANDCLASS%'],
-            [$commandClass],
-            $stub
-        );
     }
 }

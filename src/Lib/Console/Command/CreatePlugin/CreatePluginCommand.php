@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console\Command\CreatePlugin;
 
 use Composer\Pcre\Preg;
@@ -18,7 +19,7 @@ class CreatePluginCommand extends AbstractCommand
     {
         $this->line('提示：插件名称是多个单词组成的需要以-或者_分隔；');
         $pluginName = $this->askAndValidate('请输入插件名称:', static function ($value) {
-            if (! $value) {
+            if (!$value) {
                 throw new \InvalidArgumentException(
                     'The plugin name is invalid'
                 );
@@ -26,13 +27,13 @@ class CreatePluginCommand extends AbstractCommand
             return $value;
         });
         $composerName = 'devhelper-plugin/' . $pluginName;
-        if (! Preg::isMatch('{^[a-z0-9_.-]+/[a-z0-9_.-]+$}D', $composerName)) {
+        if (!Preg::isMatch('{^[a-z0-9_.-]+/[a-z0-9_.-]+$}D', $composerName)) {
             throw new \InvalidArgumentException(
                 'The package name ' . $composerName . ' is invalid, it should be lowercase and have a vendor name, a forward slash, and a package name, matching: [a-z0-9_.-]+/[a-z0-9_.-]+'
             );
         }
         $composerDesc = $this->askAndValidate('请输入插件描述:', static function ($value) {
-            if (! $value) {
+            if (!$value) {
                 throw new \InvalidArgumentException(
                     'The plugin desc is invalid'
                 );

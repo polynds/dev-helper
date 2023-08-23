@@ -4,24 +4,11 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\File;
 
 class FileWriter
 {
-    public static function filePutContentsIfModified(string $path, string $content): int
-    {
-        $success = @file_put_contents($path, $content);
-        if ($success === false) {
-            $error = error_get_last();
-
-            throw new NotWriteFilesException(
-                $path,
-                $error !== null ? $error['message'] : 'unknown cause',
-            );
-        }
-        return $success;
-    }
-
     public static function write(string $path, string $content)
     {
         if ($path === 'php://memory') {
@@ -46,5 +33,19 @@ class FileWriter
         }
 
         return 0;
+    }
+
+    public static function filePutContentsIfModified(string $path, string $content): int
+    {
+        $success = @file_put_contents($path, $content);
+        if ($success === false) {
+            $error = error_get_last();
+
+            throw new NotWriteFilesException(
+                $path,
+                $error !== null ? $error['message'] : 'unknown cause',
+            );
+        }
+        return $success;
     }
 }

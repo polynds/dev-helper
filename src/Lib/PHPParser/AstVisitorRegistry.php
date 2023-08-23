@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\PHPParser;
 
 use SplPriorityQueue;
@@ -26,6 +27,14 @@ class AstVisitorRegistry
         throw new \InvalidArgumentException('Invalid method for ' . __CLASS__);
     }
 
+    public static function getQueue(): SplPriorityQueue
+    {
+        if (!static::$queue instanceof SplPriorityQueue) {
+            static::$queue = new SplPriorityQueue();
+        }
+        return static::$queue;
+    }
+
     public static function insert($value, $priority = 0)
     {
         static::$values[] = $value;
@@ -35,13 +44,5 @@ class AstVisitorRegistry
     public static function exists($value): bool
     {
         return in_array($value, static::$values);
-    }
-
-    public static function getQueue(): SplPriorityQueue
-    {
-        if (! static::$queue instanceof SplPriorityQueue) {
-            static::$queue = new SplPriorityQueue();
-        }
-        return static::$queue;
     }
 }

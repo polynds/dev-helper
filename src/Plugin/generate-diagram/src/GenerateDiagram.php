@@ -60,11 +60,6 @@ class GenerateDiagram
         return $this;
     }
 
-    public function output()
-    {
-        FileWriter::write($this->uml->getFileName(), (new PrettyPrinter($this->uml))->print());
-    }
-
     protected function traverse()
     {
         foreach ($this->files as $file) {
@@ -129,5 +124,10 @@ class GenerateDiagram
     protected function bindCall()
     {
 
+    }
+
+    public function output()
+    {
+        FileWriter::write($this->uml->getFileName(), (new PrettyPrinter($this->uml))->print());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding!!!
  */
+
 namespace DevHelper\Lib\Console;
 
 use InvalidArgumentException;
@@ -38,7 +39,7 @@ class Parser
      */
     protected static function name(string $expression): string
     {
-        if (! preg_match('/[^\s]+/', $expression, $matches)) {
+        if (!preg_match('/[^\s]+/', $expression, $matches)) {
             throw new InvalidArgumentException('Unable to determine command name from signature.');
         }
 
@@ -63,29 +64,6 @@ class Parser
         }
 
         return [$arguments, $options];
-    }
-
-    /**
-     * Parse an argument expression.
-     */
-    protected static function parseArgument(string $token): InputArgument
-    {
-        [$token, $description] = static::extractDescription($token);
-
-        switch (true) {
-            case Str::endsWith($token, '?*'):
-                return new InputArgument(trim($token, '?*'), InputArgument::IS_ARRAY, $description);
-            case Str::endsWith($token, '*'):
-                return new InputArgument(trim($token, '*'), InputArgument::IS_ARRAY | InputArgument::REQUIRED, $description);
-            case Str::endsWith($token, '?'):
-                return new InputArgument(trim($token, '?'), InputArgument::OPTIONAL, $description);
-            case preg_match('/(.+)\=\*(.+)/', $token, $matches):
-                return new InputArgument($matches[1], InputArgument::IS_ARRAY, $description, preg_split('/,\s?/', $matches[2]));
-            case preg_match('/(.+)\=(.+)/', $token, $matches):
-                return new InputArgument($matches[1], InputArgument::OPTIONAL, $description, $matches[2]);
-            default:
-                return new InputArgument($token, InputArgument::REQUIRED, $description);
-        }
     }
 
     /**
@@ -126,5 +104,28 @@ class Parser
         $parts = preg_split('/\s+:\s+/', trim($token), 2);
 
         return count($parts) === 2 ? $parts : [$token, ''];
+    }
+
+    /**
+     * Parse an argument expression.
+     */
+    protected static function parseArgument(string $token): InputArgument
+    {
+        [$token, $description] = static::extractDescription($token);
+
+        switch (true) {
+            case Str::endsWith($token, '?*'):
+                return new InputArgument(trim($token, '?*'), InputArgument::IS_ARRAY, $description);
+            case Str::endsWith($token, '*'):
+                return new InputArgument(trim($token, '*'), InputArgument::IS_ARRAY | InputArgument::REQUIRED, $description);
+            case Str::endsWith($token, '?'):
+                return new InputArgument(trim($token, '?'), InputArgument::OPTIONAL, $description);
+            case preg_match('/(.+)\=\*(.+)/', $token, $matches):
+                return new InputArgument($matches[1], InputArgument::IS_ARRAY, $description, preg_split('/,\s?/', $matches[2]));
+            case preg_match('/(.+)\=(.+)/', $token, $matches):
+                return new InputArgument($matches[1], InputArgument::OPTIONAL, $description, $matches[2]);
+            default:
+                return new InputArgument($token, InputArgument::REQUIRED, $description);
+        }
     }
 }

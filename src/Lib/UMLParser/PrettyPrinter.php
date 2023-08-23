@@ -4,6 +4,7 @@ declare(strict_types=1);
 /**
  * happy coding.
  */
+
 namespace DevHelper\Lib\UMLParser;
 
 use DevHelper\Lib\UMLParser\Builder\Class_;
@@ -49,12 +50,12 @@ class PrettyPrinter
     protected function pModifiers(Modifiers $modifiers): string
     {
         return ($modifiers->isFinal() ? 'final ' : '')
-        . ($modifiers->isAbstract() ? 'abstract ' : '')
-        . ($modifiers->isPublic() ? '+ public ' : '')
-        . ($modifiers->isProtected() ? '- protected ' : '')
-        . ($modifiers->isPrivate() ? '- private ' : '')
-        . ($modifiers->isStatic() ? 'static ' : '')
-        . ($modifiers->isReadonly() ? 'readonly ' : '');
+            . ($modifiers->isAbstract() ? 'abstract ' : '')
+            . ($modifiers->isPublic() ? '+ public ' : '')
+            . ($modifiers->isProtected() ? '- protected ' : '')
+            . ($modifiers->isPrivate() ? '- private ' : '')
+            . ($modifiers->isStatic() ? 'static ' : '')
+            . ($modifiers->isReadonly() ? 'readonly ' : '');
     }
 
     protected function pExtends(array $extends): string
@@ -64,19 +65,19 @@ class PrettyPrinter
 
     protected function pImplements(array $implements): string
     {
-//        switch (get_class($node)) {
-//            case Class_::class:
-//                /** @var Class_ $class */
-//                $class = $node;
-//                $implements = $class->getImplements();
-//                break;
-//            default:
-//                throw new InvalidArgumentException('Other types cannot get implemented data.');
-//        }
-//        $set = [];
-//        foreach ($implements as $implement) {
-//            $set[] = $implement->getName();
-//        }
+        //        switch (get_class($node)) {
+        //            case Class_::class:
+        //                /** @var Class_ $class */
+        //                $class = $node;
+        //                $implements = $class->getImplements();
+        //                break;
+        //            default:
+        //                throw new InvalidArgumentException('Other types cannot get implemented data.');
+        //        }
+        //        $set = [];
+        //        foreach ($implements as $implement) {
+        //            $set[] = $implement->getName();
+        //        }
         return implode(',', $implements);
     }
 
@@ -90,8 +91,8 @@ class PrettyPrinter
         return self::space(4)
             . $this->pModifiers($class_->getFlags())
             . 'class ' . $class_->getName() . self::pColors($class_)
-            . (! empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_->getExtends()) : '')
-            . (! empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_->getImplements()) : '')
+            . (!empty($class_->getExtends()) ? ' extends ' . $this->pExtends($class_->getExtends()) : '')
+            . (!empty($class_->getImplements()) ? ' implements ' . $this->pImplements($class_->getImplements()) : '')
             . '{ '
             . $this->pConstants($class_->getConstant())
             . $this->pPropertys($class_->getProperty())
@@ -145,7 +146,7 @@ class PrettyPrinter
     {
         return self::space(4)
             . 'interface' . self::space() . $interface->getName() . self::pColors($interface)
-            . (! empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
+            . (!empty($interface->getExtends()) ? ' extends ' . $this->pExtends($interface->getExtends()) : '')
             . self::lf('{')
             . $this->pConstants($interface->getConstants())
             . $this->pMethods($interface->getMethods())
