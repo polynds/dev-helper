@@ -7,7 +7,7 @@ use DevHelper\Lib\Console\AbstractCommand;
 class DataVisualizer
 {
     public function __construct(
-        protected $data
+        protected string $data
     ) {
     }
 
