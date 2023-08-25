@@ -17,9 +17,10 @@ class FileReader
 
         $file = fopen($path, 'rb');
         $buffer = "";
-        while (($line = fgets($file, 1024)) != false) {
-            $buffer .= $line;
+        while (!feof($file)) {
+            $buffer .= fread($file, 4069);
         }
+        fclose($file);
 
         return $buffer;
     }

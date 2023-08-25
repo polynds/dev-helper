@@ -11,24 +11,21 @@ class DataVisualizerCommand extends AbstractCommand
 
     public function handle()
     {
-        $path = $this->askAndValidate('请输入文件路径:', static function ($value) {
+        $data = $this->askAndValidate('请输入文件路径或者数据:', static function ($value) {
             if (!$value) {
                 throw new \InvalidArgumentException(
                     '输入错误'
                 );
             }
 
-            if (!file_exists($value)) {
-                throw new \InvalidArgumentException(
-                    '输入错误,文件不存在'
-                );
-            }
-
             return $value;
         }, 3);
 
-        $data = FileReader::read($path);
-        (new DataVisualizer($data))->generate();
+        if (file_exists($data)) {
+            $data = FileReader::read($data);
+        }
+
+        (new DataVisualizer($data))->generate()->save();
 
     }
 
