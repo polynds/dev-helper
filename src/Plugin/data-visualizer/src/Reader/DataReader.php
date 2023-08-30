@@ -1,6 +1,6 @@
 <?php
 
-namespace DevHelper\Plugin\DataVisualizer\Importer;
+namespace DevHelper\Plugin\DataVisualizer\Canvas\Importer;
 
 class DataReader
 {

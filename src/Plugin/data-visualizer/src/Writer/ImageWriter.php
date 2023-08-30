@@ -1,6 +1,6 @@
 <?php
 
-namespace DevHelper\Plugin\DataVisualizer\Writer;
+namespace DevHelper\Plugin\DataVisualizer\Canvas\Writer;
 
 class ImageWriter
 {

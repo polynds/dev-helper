@@ -1,6 +1,7 @@
 <?php
 
-namespace DevHelper\Plugin\DataVisualizer;
+namespace DevHelper\Plugin\DataVisualizer\Canvas;
+
 
 class AbstractCanvas
 {
@@ -9,4 +10,11 @@ class AbstractCanvas
     protected int $width;
 
     protected int $height;
+
+//    protected DrawInterface $pencil;
+
+//    public function pencil(DrawInterface $pencil): void
+//    {
+//        $this->pencil = $pencil;
+//    }
 }

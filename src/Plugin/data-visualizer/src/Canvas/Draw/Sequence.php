@@ -1,8 +1,11 @@
 <?php
 
-namespace DevHelper\Plugin\DataVisualizer\Draw;
+namespace DevHelper\Plugin\DataVisualizer\Canvas\Draw;
 
-class Sequence
+class Sequence implements DrawInterface
 {
-
+    public function draw(array|string $imageData): void
+    {
+        // TODO: Implement render() method.
+    }
 }

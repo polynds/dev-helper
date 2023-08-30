@@ -25,7 +25,8 @@ class DataVisualizerCommand extends AbstractCommand
             $data = FileReader::read($data);
         }
 
-        (new DataVisualizer($data))->generate()->save();
+        //        (new DataVisualizer($data))->generate()->save();
+        (new Render())->setObject((new DataObject())->setData($data)->feed())->build();
 
     }
 

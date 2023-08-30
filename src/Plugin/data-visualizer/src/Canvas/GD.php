@@ -1,6 +1,6 @@
 <?php
 
-namespace DevHelper\Plugin\DataVisualizer;
+namespace DevHelper\Plugin\DataVisualizer\Canvas;
 
 class GD extends AbstractCanvas implements CanvasInterface
 {
@@ -14,7 +14,18 @@ class GD extends AbstractCanvas implements CanvasInterface
 
     public function draw(DataObject $object): void
     {
-        // TODO: Implement draw() method.
+        $i = 0;
+        for ($y = 0; $y < $this->height; $y++) {
+            for ($x = 0; $x < $this->width; $x++) {
+                $rgba = array();
+                $rgba['red'] = rand(0, $imageData[$i] ?? 0);
+                $rgba['green'] = rand(0, $imageData[$i] ?? 0);
+                $rgba['blue'] = rand(0, $imageData[$i] ?? 0);
+                $i++;
+                $color = imagecolorallocate($this->canvas, $rgba['red'], $rgba['green'], $rgba['blue']);
+                imagesetpixel($this->canvas, $x, $y, $color);
+            }
+        }
     }
 
     public function output(?string $path = null): string
