@@ -2,6 +2,8 @@
 
 namespace DevHelper\Plugin\DataVisualizer\Canvas;
 
+use DevHelper\Plugin\DataVisualizer\DataObject;
+
 class GD extends AbstractCanvas implements CanvasInterface
 {
     public function init(int $width, int $height): void
@@ -9,11 +11,14 @@ class GD extends AbstractCanvas implements CanvasInterface
         if (!extension_loaded('gd')) {
             throw new \Exception('GD extension is not loaded');
         }
+        $this->width = $width;
+        $this->height = $height;
         $this->canvas = imagecreatetruecolor($this->width, $this->height);
     }
 
     public function draw(DataObject $object): void
     {
+        $imageData = $object->getImageData();
         $i = 0;
         for ($y = 0; $y < $this->height; $y++) {
             for ($x = 0; $x < $this->width; $x++) {
