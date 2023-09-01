@@ -10,9 +10,9 @@ use DevHelper\Plugin\DataVisualizer\Canvas\Draw\Sequence;
 
 class Render
 {
-    protected int $width = 300;
+    protected int $width = 100;
 
-    protected int $height = 300;
+    protected int $height = 100;
 
     protected ?DataObject $object = null;
 
