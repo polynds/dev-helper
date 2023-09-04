@@ -11,8 +11,14 @@ class FileReader
 {
     public static function read(string $path): string
     {
+
+
         if ($path === 'php://memory') {
             return file_get_contents($path);
+        }
+
+        if (!is_readable($path) || !is_file($path)) {
+            throw new \RuntimeException(sprintf('File "%s" is not readable.', $path));
         }
 
         $file = fopen($path, 'rb');
