@@ -4,25 +4,13 @@ namespace DevHelper\Plugin\DataVisualizer\Canvas;
 
 class RGB
 {
-    public static function hex(int $number): array
-    {
-        $mappedNumber = round(($number / 255) * 255);
-
-        $hex = str_pad(dechex($mappedNumber), 2, '0', STR_PAD_LEFT);
-
-        return [
-            'red' => $hex,
-            'green' => $hex,
-            'blue' => $hex,
-        ];
-    }
 
     public static function mapHexToNumber($hex)
     {
         return min(round((hexdec($hex) / 255) * 255), 255);
     }
 
-    public static function dec(int $number): array
+    public static function hex(int $number): array
     {
         $mappedNumber = round(($number / 255) * 255);
 
@@ -41,6 +29,15 @@ class RGB
             'red' => mt_rand(0, $number),
             'green' => mt_rand(0, $number),
             'blue' => mt_rand(0, $number),
+        ];
+    }
+
+    public static function char(int $number): array
+    {
+        return [
+            'red' => $number,
+            'green' => $number,
+            'blue' => $number,
         ];
     }
 }
