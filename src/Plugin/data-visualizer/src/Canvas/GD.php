@@ -22,7 +22,7 @@ class GD extends AbstractCanvas implements CanvasInterface
         $i = 0;
         for ($y = 0; $y < $this->height; $y++) {
             for ($x = 0; $x < $this->width; $x++) {
-                $rgba = RGB::char(intval($imageData[$i] ?? 0));
+                $rgba = RGB::ceil(intval($imageData[$i] ?? 0));
                 $i++;
                 $color = imagecolorallocate($this->canvas, $rgba['red'], $rgba['green'], $rgba['blue']);
                 imagesetpixel($this->canvas, $x, $y, $color);

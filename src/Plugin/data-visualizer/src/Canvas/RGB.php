@@ -4,7 +4,6 @@ namespace DevHelper\Plugin\DataVisualizer\Canvas;
 
 class RGB
 {
-
     public static function mapHexToNumber($hex)
     {
         return min(round((hexdec($hex) / 255) * 255), 255);
@@ -38,6 +37,16 @@ class RGB
             'red' => $number,
             'green' => $number,
             'blue' => $number,
+        ];
+    }
+
+    public static function ceil(int $number): array
+    {
+        $ceil = ceil($number / 3);
+        return [
+            'red' => $ceil,
+            'green' => $ceil,
+            'blue' => $ceil,
         ];
     }
 }
