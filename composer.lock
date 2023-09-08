@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34b1d699d4a5953b2e20b31228b05cf4",
+    "content-hash": "e9202eacb44fcbcadf83041e1c88772d",
     "packages": [
+        {
+            "name": "devhelper-plugin/color-code",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./src/Plugin/color-code",
+                "reference": "0f3734d8bebdd4545f67338dfb605046f82cca3a"
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "library",
+            "extra": {
+                "devHelper": {
+                    "config": "DevHelper\\Plugin\\ColorCode\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DevHelper\\Plugin\\ColorCode\\": "src/"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "",
+                    "email": ""
+                }
+            ],
+            "description": "给代码上色",
+            "keywords": [
+                "php"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "devhelper-plugin/data-visualizer",
             "version": "dev-main",
@@ -4501,7 +4540,8 @@
         "devhelper-plugin/generate-dir-tree": 20,
         "devhelper-plugin/gen-doc": 20,
         "devhelper-plugin/keccak256": 20,
-        "devhelper-plugin/data-visualizer": 20
+        "devhelper-plugin/data-visualizer": 20,
+        "devhelper-plugin/color-code": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

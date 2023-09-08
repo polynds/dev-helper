@@ -1,0 +1,27 @@
+{
+    "name": "devhelper-plugin/color-code",
+    "description": "给代码上色",
+    "license": "Apache-2.0",
+    "keywords": [
+        "php"
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "authors": [
+        {
+            "name": "",
+            "email": ""
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DevHelper\\Plugin\\ColorCode\\": "src/"
+        }
+    },
+    "extra": {
+        "devHelper": {
+            "config": "DevHelper\\Plugin\\ColorCode\\ConfigProvider"
+        }
+    }
+}
