@@ -7,11 +7,8 @@ declare(strict_types=1);
 
 namespace DevHelper\Lib\Console\Command\DeletePlugin;
 
-use Composer\Pcre\Preg;
 use DevHelper\Lib\Console\AbstractCommand;
-use DevHelper\Lib\Console\Command\CreatePlugin\Plugin;
-use DevHelper\Lib\Console\Command\CreatePlugin\PluginFactory;
-use DevHelper\Utils\Str;
+use DevHelper\Lib\Console\Application;
 
 class DeletePluginCommand extends AbstractCommand
 {
@@ -19,7 +16,8 @@ class DeletePluginCommand extends AbstractCommand
 
     public function handle()
     {
-
+        $plugins = Application::getInstance()->plugins();
+        var_dump($plugins);
         $this->line('提示：插件名称是多个单词组成的需要以-或者_分隔；');
         $pluginName = $this->askAndValidate('请输入插件名称:', static function ($value) {
             if (!$value) {

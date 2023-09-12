@@ -11,15 +11,19 @@ use DevHelper\Lib\Console\Command\CreatePlugin\CreatePluginCommand;
 use DevHelper\Lib\Console\Command\DeletePlugin\DeletePluginCommand;
 use DevHelper\Lib\File\JsonFile;
 use DevHelper\Lib\PHPParser\Composer;
+use DevHelper\Utils\StaticInstance;
 use Symfony\Component\Console\Application as BaseApplication;
 
 final class Application extends BaseApplication
 {
+    use StaticInstance;
+
     public function __construct(string $name = 'DH Console', string $version = '1.0')
     {
         parent::__construct($name, $version);
         $this->registerLibCommand();
         $this->registerCommand();
+        Application::$instance = $this;
     }
 
     protected function registerLibCommand()
@@ -44,4 +48,10 @@ final class Application extends BaseApplication
         }
         $this->addCommands($commands);
     }
+
+    public function plugins(): array
+    {
+        return JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
+    }
+
 }
