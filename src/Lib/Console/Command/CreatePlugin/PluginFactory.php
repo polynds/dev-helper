@@ -132,6 +132,7 @@ class PluginFactory
             $plugins[] = [
                 'name' => $this->plugin->getCommandName(),
                 'command' => str_replace('\\', '\\', $this->plugin->getNameSpace() . '\\' . $className),
+                'status' => 'enabled',
             ];
             JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $plugins);
         }

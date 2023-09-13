@@ -1,26 +1,32 @@
 [
     {
         "name": "generateDiagram",
-        "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand"
+        "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand",
+        "status": "enabled",
     },
     {
         "name": "generateDirTree",
-        "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand"
+        "command": "DevHelper\\Plugin\\GenerateDirTree\\GenerateDirTreeCommand",
+        "status": "enabled"
     },
     {
         "name": "genDoc",
-        "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand"
+        "command": "DevHelper\\Plugin\\GenDoc\\GenDocCommand",
+        "status": "enabled"
     },
     {
         "name": "keccak256",
-        "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command"
+        "command": "DevHelper\\Plugin\\Keccak256\\Keccak256Command",
+        "status": "enabled"
     },
     {
         "name": "dataVisualizer",
-        "command": "DevHelper\\Plugin\\DataVisualizer\\DataVisualizerCommand"
+        "command": "DevHelper\\Plugin\\DataVisualizer\\DataVisualizerCommand",
+        "status": "enabled"
     },
     {
         "name": "colorCode",
-        "command": "DevHelper\\Plugin\\ColorCode\\ColorCodeCommand"
+        "command": "DevHelper\\Plugin\\ColorCode\\ColorCodeCommand",
+        "status": "enabled"
     }
 ]

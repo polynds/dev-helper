@@ -7,8 +7,10 @@ declare(strict_types=1);
 
 namespace DevHelper\Lib\Console\Command\DeletePlugin;
 
+use DevHelper\Lib\Collection;
 use DevHelper\Lib\Console\AbstractCommand;
 use DevHelper\Lib\Console\Application;
+use DevHelper\Lib\File\JsonFile;
 
 class DeletePluginCommand extends AbstractCommand
 {
@@ -27,6 +29,15 @@ class DeletePluginCommand extends AbstractCommand
             }
             return $value;
         });
+        $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
+        if ($plugins && is_array($plugins)) {
+            $newPlugins = Collection::make($plugins)->map(function ($plugin) use ($pluginName) {
+                if ($plugin['name'] == $pluginName) {
+                    $plugin['status'] = 'disabled';
+                }
+            })->toArray();
+            JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $newPlugins);
+        }
     }
 
     protected function configure()
