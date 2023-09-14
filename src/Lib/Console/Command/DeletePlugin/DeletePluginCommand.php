@@ -18,8 +18,6 @@ class DeletePluginCommand extends AbstractCommand
 
     public function handle()
     {
-        $plugins = Application::getInstance()->plugins();
-        var_dump($plugins);
         $this->line('提示：插件名称是多个单词组成的需要以-或者_分隔；');
         $pluginName = $this->askAndValidate('请输入插件名称:', static function ($value) {
             if (!$value) {
