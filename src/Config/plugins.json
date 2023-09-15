@@ -2,7 +2,7 @@
     {
         "name": "generateDiagram",
         "command": "DevHelper\\Plugin\\GenerateDiagram\\GenerateDiagramCommand",
-        "status": "enabled",
+        "status": "enabled"
     },
     {
         "name": "generateDirTree",

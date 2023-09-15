@@ -39,6 +39,9 @@ final class Application extends BaseApplication
         $commands = [];
         $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
         foreach ($plugins as $plugin) {
+            if($plugin['status'] == 'disabled') {
+                continue;
+            }
             $className = $plugin['command'];
             $file = Composer::getLoader()->findFile($className);
             if (!$file) {
