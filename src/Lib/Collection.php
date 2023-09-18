@@ -33,4 +33,9 @@ class Collection
     {
         return $this->items;
     }
+
+    public function find(\Closure $param): static
+    {
+        return new static(items: array_filter($this->items, $param));
+    }
 }

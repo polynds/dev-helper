@@ -31,6 +31,7 @@ final class Application extends BaseApplication
         $this->addCommands([
             new CreatePluginCommand(),
             new DeletePluginCommand(),
+            new InstallPluginCommand(),
         ]);
     }
 
