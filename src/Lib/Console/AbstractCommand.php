@@ -354,4 +354,9 @@ abstract class AbstractCommand extends SymfonyCommand
 
         return $this->output;
     }
+
+    protected function getPluginPath(): string
+    {
+        return CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json';
+    }
 }

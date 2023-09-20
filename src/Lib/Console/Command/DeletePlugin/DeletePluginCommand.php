@@ -9,7 +9,7 @@ namespace DevHelper\Lib\Console\Command\DeletePlugin;
 
 use DevHelper\Lib\Collection;
 use DevHelper\Lib\Console\AbstractCommand;
-use DevHelper\Lib\Console\Application;
+use DevHelper\Lib\Console\Command\CommandStatus;
 use DevHelper\Lib\File\JsonFile;
 
 class DeletePluginCommand extends AbstractCommand
@@ -27,14 +27,14 @@ class DeletePluginCommand extends AbstractCommand
             }
             return $value;
         });
-        $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
+        $plugins = JsonFile::read($this->getPluginPath());
         if ($plugins && is_array($plugins)) {
             $newPlugins = Collection::make($plugins)->map(function ($plugin) use ($pluginName) {
                 if ($plugin['name'] == $pluginName) {
-                    $plugin['status'] = 'disabled';
+                    $plugin['status'] = CommandStatus::DISABLED;
                 }
             })->toArray();
-            JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $newPlugins);
+            JsonFile::write($this->getPluginPath(), $newPlugins);
         }
     }
 

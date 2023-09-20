@@ -9,6 +9,7 @@ namespace DevHelper\Lib\Console\Command\InstallPlugin;
 
 use DevHelper\Lib\Collection;
 use DevHelper\Lib\Console\AbstractCommand;
+use DevHelper\Lib\Console\Command\CommandStatus;
 use DevHelper\Lib\File\JsonFile;
 
 class InstallPluginCommand extends AbstractCommand
@@ -25,15 +26,14 @@ class InstallPluginCommand extends AbstractCommand
             }
             return $value;
         });
-        $plugins = JsonFile::read(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json');
+        $plugins = JsonFile::read($this->getPluginPath());
         if ($plugins && is_array($plugins)) {
-            $newPlugins = Collection::make($plugins)->find(function ($plugin) use ($pluginName) {
+            $newPlugins = Collection::make($plugins)->map(function ($plugin) use ($pluginName) {
                 if ($plugin['name'] == $pluginName) {
-                    return true;
+                    $plugin['status'] = CommandStatus::ENABLED;
                 }
-                return false;
             })->toArray();
-            JsonFile::write(CONFIG_PATH . DIRECTORY_SEPARATOR . 'plugins.json', $newPlugins);
+            JsonFile::write($this->getPluginPath(), $newPlugins);
         }
     }
 
