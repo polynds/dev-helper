@@ -33,6 +33,9 @@ class InstallPluginCommand extends AbstractCommand
                     $plugin['status'] = CommandStatus::ENABLED;
                 }
             })->toArray();
+            if (!$newPlugins) {
+                throw new \InvalidArgumentException("Error: 插件 {$pluginName} 不存在");
+            }
             JsonFile::write($this->getPluginPath(), $newPlugins);
         }
     }
