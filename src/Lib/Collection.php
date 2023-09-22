@@ -39,7 +39,13 @@ class Collection
         return new static(items: array_filter($this->items, $param));
     }
 
-    public function walk(\Closure $callback): static{
+    public function walk(\Closure $callback): static
+    {
         return new static(items: array_map($callback, $this->items));
+    }
+
+    public function filter(\Closure $callback): static
+    {
+        return new static(items: array_filter($this->items, $callback));
     }
 }
