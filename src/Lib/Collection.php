@@ -48,4 +48,9 @@ class Collection
     {
         return new static(items: array_filter($this->items, $callback));
     }
+
+    public function pluck(\Closure $callback): static
+    {
+        return new static(items: array_map($callback, $this->items));
+    }
 }
