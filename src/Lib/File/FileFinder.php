@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace DevHelper\Lib\File;
 
+use DevHelper\Lib\Exception\PathNotFoundException;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace DevHelper\Lib\File;
 
+use DevHelper\Lib\Exception\NotWriteFilesException;
 use Exception;
 use InvalidArgumentException;
 

@@ -7,6 +7,8 @@ declare(strict_types=1);
 
 namespace DevHelper\Lib\File;
 
+use DevHelper\Lib\Exception\NotWriteFilesException;
+
 class FileWriter
 {
     public static function write(string $path, string $content)

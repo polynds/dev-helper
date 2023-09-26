@@ -5,7 +5,7 @@ declare(strict_types=1);
  * happy coding!!!
  */
 
-namespace DevHelper\Lib\File;
+namespace DevHelper\Lib\Exception;
 
 class PathNotFoundException extends \Exception
 {
