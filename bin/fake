@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+/**
+ * happy coding!!!
+ */
+
+namespace DevHelper;
+
+use DevHelper\Lib\Console\AbstractCommand;
+use DevHelper\Lib\File\FileWriter;
+use PhpParser\BuilderFactory;
+use PhpParser\NodeDumper;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+function createFakeClassFile()
+{
+    $name = random_bytes(8);
+    $nameSpace = 'Fake';
+    $className = 'Fake' . $name;
+    $fileName = $className . '.php';
+    $filePath = __DIR__ . '/fake/' . DIRECTORY_SEPARATOR . $fileName;
+    $factory = new BuilderFactory();
+    $node = $factory->namespace($nameSpace)
+        ->addStmt($factory->use(AbstractCommand::class))
+        ->addStmt(
+            $factory->class($className)
+                ->addStmt($factory->method('handle')->makePublic())
+                ->addStmt($factory->property('name')->setType('string')->makeProtected()->setDefault($name))
+        )
+        ->getNode();
+
+
+    FileWriter::write($filePath, (new NodeDumper())->dump($node));
+}
+
+createFakeClassFile();
