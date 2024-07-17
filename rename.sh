@@ -2,9 +2,9 @@
 
 git filter-branch --env-filter '
 
-OLD_EMAIL="j.kuang@comsand.com"
-CORRECT_NAME="kuangjian"
-CORRECT_EMAIL="2910508410@qq.com"
+OLD_EMAIL="2910508410@qq.com"
+CORRECT_NAME="polynds"
+CORRECT_EMAIL="polynds@users.noreply.github.com"
 
 if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
 then
