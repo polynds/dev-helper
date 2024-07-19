@@ -9,29 +9,30 @@ namespace DevHelper;
 use DevHelper\Lib\Console\AbstractCommand;
 use DevHelper\Lib\File\FileWriter;
 use PhpParser\BuilderFactory;
-use PhpParser\NodeDumper;
+use PhpParser\PrettyPrinter\Standard;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 function createFakeClassFile()
 {
-    $name = random_bytes(8);
+    $name = bin2hex(random_bytes(8));
     $nameSpace = 'Fake';
     $className = 'Fake' . $name;
     $fileName = $className . '.php';
-    $filePath = __DIR__ . '/fake/' . DIRECTORY_SEPARATOR . $fileName;
+    $filePath = dirname(__DIR__,1) . '/tests/fake/' . $fileName;
     $factory = new BuilderFactory();
-    $node = $factory->namespace($nameSpace)
+    $stmt = $factory->namespace($nameSpace)
         ->addStmt($factory->use(AbstractCommand::class))
         ->addStmt(
             $factory->class($className)
                 ->addStmt($factory->method('handle')->makePublic())
                 ->addStmt($factory->property('name')->setType('string')->makeProtected()->setDefault($name))
-        )
-        ->getNode();
+        );
 
+    $prettyPrinter = new Standard;
+    $newCode = $prettyPrinter->prettyPrintFile($stmt->getNode()->stmts);
 
-    FileWriter::write($filePath, (new NodeDumper())->dump($node));
+    FileWriter::write($filePath, $newCode);
 }
 
 createFakeClassFile();
