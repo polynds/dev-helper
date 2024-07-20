@@ -3,7 +3,6 @@
 /**
  * happy coding!!!
  */
-
 namespace DevHelper;
 
 use DevHelper\Lib\Console\AbstractCommand;
@@ -19,7 +18,7 @@ function createFakeClassFile()
     $nameSpace = 'Fake';
     $className = 'Fake' . $name;
     $fileName = $className . '.php';
-    $filePath = dirname(__DIR__,1) . '/tests/fake/' . $fileName;
+    $filePath = dirname(__DIR__, 1) . '/tests/fake/' . $fileName;
     $factory = new BuilderFactory();
     $stmt = $factory->namespace($nameSpace)
         ->addStmt($factory->use(AbstractCommand::class))
@@ -29,10 +28,41 @@ function createFakeClassFile()
                 ->addStmt($factory->property('name')->setType('string')->makeProtected()->setDefault($name))
         );
 
-    $prettyPrinter = new Standard;
+    $prettyPrinter = new Standard();
     $newCode = $prettyPrinter->prettyPrintFile($stmt->getNode()->stmts);
 
     FileWriter::write($filePath, $newCode);
+    usleep(100);
+    commit();
+}
+
+function commit()
+{
+    echo 'start commit.' . PHP_EOL;
+    $gitAdd = 'git add . ';
+    $gitCommit = 'git commit -m new';
+    $gitPush = 'git push';
+    git($gitAdd);
+    echo 'git add successed.' . PHP_EOL;
+    usleep(500);
+    git($gitCommit);
+    echo 'git commit successed.' . PHP_EOL;
+    usleep(500);
+    git($gitPush);
+    echo 'git push successed.' . PHP_EOL;
+}
+
+function git(string $cmd)
+{
+    $cwd = getcwd();
+    assert(is_string($cwd));
+    chdir(dirname(__DIR__, 1));
+    exec($cmd, $output, $result);
+    if ($result !== 0) {
+        echo 'Could not remove dev deps, make sure exec is allowed and php can be found in your PATH';
+        exit(1);
+    }
+    chdir($cwd);
 }
 
 createFakeClassFile();
