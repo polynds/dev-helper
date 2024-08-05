@@ -21,6 +21,9 @@ cd dev-helper
 ```shell
 composer install
 ```
+```shell
+composer install/update --ignore-platform-reqs
+```
 
 ###### 执行权限
 
