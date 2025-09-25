@@ -1,0 +1,69 @@
+[P01]01-Introduction
+[P02]02-What is WebGL and why use Three.js
+[P03]03-Basic scene
+[P04]new03__First_Three.js_Project
+[P05]04-Local Server
+[P06]05-Transform objects
+[P07]06-Animations
+[P08]07-Cameras
+[P09]08-Fullscreen and resizing
+[P10]09-Geometries
+[P11]10-Debug UI
+[P12]11-Textures
+[P13]12-Materials
+[P14]13-3D Text
+[P15]14-Go live
+[P16]15-Lights
+[P17]16-Shadows
+[P18]17-Haunted House
+[P19]18-Particles
+[P20]19-Galaxy Generator
+[P21]20-Scroll based animation
+[P22]21-Physics
+[P23]22-Imported models
+[P24]23-Raycaster and Mouse Events
+[P25]24-Custom models with Blender
+[P26][new]24 — Environment map
+[P27]25-Realistic render
+[P28]26-Code_structuring_for_bigger_projects
+[P29]27-Shaders
+[P30]28-Shader patterns
+[P31]29-Raging sea
+[P32]30-Animated galaxy
+[P33]31-Modified materials
+[P34][new]32 — Coffee Smoke Shader
+[P35][new]33 — Hologram Shader
+[P36][new]34 — Fireworks Shaders
+[P37][new]35 — Lights Shading Shaders
+[P38][new]36 — Raging Sea Shading Shaders
+[P39][new]37 — Halftone Shading Shaders
+[P40][new]38 — Earth shaders
+[P41][new]39 — Particles Cursor Animation Shader
+[P42][new]40 — Particles Morphing Shader
+[P43][new]41 — GPGPU Flow Field Particles Shaders
+[P44]new42__Wobbly_Sphere_Shader
+[P45][new]43 — Sliced Model Shader
+[P46][new]44 — Procedural Terrain Shader
+[P47]32-Post-processing
+[P48]33-Performance tips
+[P49]34-Intro and loading progress
+[P50]35-Mixing HTML and WebGL
+[P51]36-Creating a scene in Blender
+[P52]37-Baking and exporting the scene
+[P53]38-Importing and optimizing the scene
+[P54]39-Adding details to the scene
+[P55]40-What are React and React Three Fiber
+[P56]41-First_React_Application
+[P57]42-First R3F Application
+[P58]43-Drei
+[P59]44-Debug
+[P60]45-Environment and Staging
+[P61]46-Load models
+[P62]47-3D Text-mask
+[P63]48-Portal Scene
+[P64]49-Mouse Events
+[P65]50-Post-processing
+[P66]51-Fun and Simple Portfolio
+[P67]52-Physics
+[P68]53-Create_a_game
+[P69]54-The end
