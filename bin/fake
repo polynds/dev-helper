@@ -38,6 +38,7 @@ function createFakeClassFile()
 
 function commit()
 {
+    echo date('Y-m-d H:i:s') . PHP_EOL;
     echo 'start commit.' . PHP_EOL;
     $gitAdd = 'git add . ';
     $gitCommit = 'git commit -m new';
